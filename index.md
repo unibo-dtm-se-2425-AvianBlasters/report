@@ -9,14 +9,13 @@ nav_order: 1
 
 ### Authors
 
-- [Giovanni Ciatto](mailto:giovanni.ciatto@unibo.it)
-- [Davide Domini](mailto:davide.domini@unibo.it)
+- [Mariam Baloch](mailto:mariam.baloch@unibo.it)
+- [Beatrice Micolucci](mailto:beatrice.micolucci@studio.unibo.it)
+- [Filippo Velli](mailto:filippo.velli@studio.unibo.it)
 
 ## Abstract
 
-(~ 2000 characters)
-
-Here you should briefly explain what the project is about.
+"Avian Blasters" (or “Avian Blasters: The Avians Strike Back”) is a fixed-screen arcade shoot ’em up inspired by games like Space Invaders and Galaga created for a university Software Engineering Project.
 
 ## Disclaimer (if needed)
 
