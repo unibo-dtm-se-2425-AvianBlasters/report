@@ -9,7 +9,7 @@ nav_order: 1
 
 ### Authors
 
-- [Mariam Baloch](mailto:mariam.baloch@unibo.it)
+- [Mariam Baloch](mailto:mariam.baloch@studio.unibo.it)
 - [Beatrice Micolucci](mailto:beatrice.micolucci@studio.unibo.it)
 - [Filippo Velli](mailto:filippo.velli@studio.unibo.it)
 
