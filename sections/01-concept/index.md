@@ -6,17 +6,8 @@ nav_order: 2
 
 # Concept
 
-Here you should explain:
-- The type of product developed with that project, for example (non-exhaustive):
-    - Application (with GUI, be it mobile, web, or desktop)
-    - Command-line application (CLI could be used by humans or scripts)
-    - Library
-    - Web-service(s)
-    - Data processing toolkit (= Library + CLI, or Jupyter Notebook)
+The project envisions the development of a desktop game application with a GUI inspired by arcade games such as Space Invaders and Galaga.
 
-- Use case collection
-    - Where are the users?
-    - When and how frequently do they interact with the system?
-    - How do they interact with the system? Which devices are they using?
-    - Does the system need to store user's data? Which data? Where?
-    - Most likely, there will be multiple roles.
+From a use case perspective, users are meant to interact with the software offline on their device when they want to have to play for a few bursts and give their routine a short and fun break.
+The system (currently) does not need to store user's data (likely it will not).
+In the case of this software project, there is only one kind of role that a user might play, namely the one of the player.
