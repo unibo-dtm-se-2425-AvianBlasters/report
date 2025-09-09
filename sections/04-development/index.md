@@ -49,3 +49,25 @@ Pull requests and issues were not used during development.
 
 - Are there any other external technology or service dependencies? Why?
     - Examples: Google Maps, Firebase, etc.
+
+
+
+**Programming Languages**
+
+We used the primary language as Python version 3.12.1. It because of its simplicity, readability, and extensive library ecosystem for game development. Its ideal for rapid prototyping and educational projects. 
+
+**Core Game Development Framework**
+
+We have used Pygame 2.6.1 for our framework because pygame is the primary framework for 2D game development in python. It provides the following:
+
+- Graphics rendering and sprite management
+- Input Handling (keyboard, mouse)
+- Sound and music playbooko
+- Cross-platform compatibility
+
+**UI Framework**
+We used Pygame Menu 4.5.2 because it provides pre-built menu components for the game's main menu, settings and scoreboard, renducing development time for UI elements.
+
+**GUI Toolkit**
+We used TKinter for GUI toolkit which is used for screen dimension detection in the menu system (menu_imp.py) TKinter is python's builtin GUI toolkit, providing, access to system information like screen resolution. 
+
