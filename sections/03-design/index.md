@@ -21,6 +21,80 @@ Ideally, the design should be the same, regardless of the technological choices 
 
 > UML Components diagrams are welcome here
 
+
+**Architectural Style**
+
+We adopt a layered architecture with object-oriented design. This choice provides:
+
+        - Separation of concerns: clear boundaries between presentation, game logic, and data/persistence.
+
+        - Maintainability and testability: each layer has focused responsibilities and can be tested in isolation.
+
+        - Evolutionary flexibility: UI, rules, and storage can evolve independently with stable interfaces.
+
+        - Pedagogical clarity: it demonstrates fundamental software engineering principles familiar to most developers.
+
+Why not other styles?
+
+- Event-based: It would add unnecessary complexity for a single-player game with straightforward game loop.
+
+- Shared dataspace: It is not suitable for a game requiring real-time updates and state management
+
+- Microservices: It is overkill for a single-player desktop application
+
+**Detailed Architecture: N-Tier with MVC Pattern**
+
+The project adopts a 3-tier architecture(Presentation, Business Logic, Data) with  the Model-View-Controller (MVC) pattern. 
+
+*Presentation Tier (View Layer)*
+
+    - GameView (→ GameViewImpl): primary rendering of world and UI.
+Key methods: renderWorld(), renderEntity(entity), updateDisplay().
+Depends on: SpriteManager, UIRenderer.
+
+    - SpriteManager: Handles sprite loading, animation frames and draw calls.
+            - SpriteManagerPlayer: Player sprite rendering and animation
+            - SpriteManagerEnemy: Enemy sprite rendering (Bird/Bat variants)
+            - SpriteManagerProjectile: Projectile sprite rendering
+            - SpriteManagerPowerUp: Power-up sprite rendering
+            - DefaultSpriteManager: Fallback sprite rendering
+
+    - UIRenderer (→ UIRendererImpl): Manages HUD elements (score, health, game over screen)
+        Key Methods: render_score(), render_health(), render_game_over()
+
+*Business Logic Tier (Controller Layer)*
+    - GameController (→ GameControllerImpl): Orchestrates game flow and coordinates between layers.
+    Key Methods: run(), update_game_state(), handle_input()
+
+    - InputHandler (→ InputHandlerImpl): maps raw input to game commands
+    Key Methods: handle_events(), process_input()
+    Supports: Keyboard input (movement, shooting, pause, quit)
+
+    - SoundManager (→ SoundManagerImpl): sound effects and music playback. 
+    Key Methods: play_sound_effect(), play_music()
+        
+
+*Data Tier (Model Layer)*
+    - World (→ WorldImpl): Manages game entities and state
+    Key Methods: get_*(), add_*(), remove_*()
+    Manages: All game entities (players, enemies, projectiles, power-ups)
+
+    - Entities: Game objects (Player, Enemy, Projectile, PowerUp)
+    Player: Player character with health, score, power-ups
+    Enemy: Base enemy class with Bird and Bat implementations
+    Projectile: Player and enemy projectiles with different types
+    PowerUp: Temporary power-ups (laser, invulnerability, etc.)
+
+    - Scoreboard (→ ScoreboardImpl): Handles persistent data
+    Key Methods: add_score(), get_scores()
+    Storage: File-based (assets/scoreboard.txt)
+
+** Motivation for 3-tier + MVC**
+It aligns with the real-time game loop while preserving a clean separation between rendering, control/orchestration, and state. It keeps dependencies pointing inward (UI → controller → model), supports unit testing of controllers/models without renderer, and allows future substitution (e.g., different renderer or storage) with minimal impact. 
+
+
+
+
 ## Infrastructure (mostly applies to distributed systems)
 
 - Are there **infrastructural components** that need to be introduced? Which and **how many** of each?
