@@ -6,12 +6,21 @@ nav_order: 5
 
 # Development
 
+A primarily test-driven methodology was adopted for the development of Avian Blasters. After an initial analysis of the project's requirements and design, the development phase involved writing tests for the game's main components (such as the player, enemies, projectiles, and power-ups) before proceeding with implementation. When necessary, testing and implementation were combined to continuously verify the code's correct functioning and ensure greater reliability and software quality.
+
 ## DVCS
 
-- This section explains how DVCS was used, in particular:
-    - Conventions on the usage of branches
-    - Conventions for commit messages 
-    - Conventions for pull requests, issues, code reviews, etc.
+The project uses Git with a structured workflow, organized into different branches following branching conventions, with each branch serving a specific purpose:
+
+- a `master` branch representing the stable version.
+- a `dev` branch containing code under development.
+- several `feature/...` branches created for different parts of the game: player, enemy, projectile and power-up features.
+
+For commits, we followed the conventional commit style: `(type)[optional context]: short description`.
+
+The project uses GitHub Actions to automatically run tests on each push and manage deployment, enabling automatic release generation on GitHub. 
+
+Pull requests and issues were not used during development.
 
 ## Implementation details
 
