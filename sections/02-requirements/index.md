@@ -11,7 +11,7 @@ nav_order: 3
 - Write down [user stories](https://www.atlassian.com/agile/project-management/user-stories) to devise the main __personas__ (user roles) and the activities they will perform via the system to be developed.
 
 - As a gamer, the software should offer a certain level of challenge and/or variety, so that it feels rewarding to play.
-- As a genral user, the software must be simple to understand visually and easy to control, so that it is as pick-up and play as possible.
+- As a general user, the software must be simple to understand visually and easy to control, so that it is as pick-up and play as possible.
 - ...
 
 ## Requirements analysis
@@ -47,8 +47,8 @@ nav_order: 3
 - **Acceptance Criteria for the requirements**
     - **F1**: the requirement is an acceptance criteria in and of itself. A 2-Player mode could be considered as a further goal
     - **F2**: the enemies must be of at least 2 types, those being the bird and the bat as desribed in the glossary. More enemy types could be considered.
-    - **F3**: the game must feature at least 2 Power-Ups, those being the invincibility (render the player invulnerable for a few seconds) and the laser (change the shot type of player to make it easier to defeat the avians). More power-ups, like the double-shot/clone and a health replenisher might be implemented.
-    - **F4**: either it can be seen by the colour of the characters or with some kind of bar. The former is more ideal, as it would reduce the clutter
+    - **F3**: the game must feature at least 2 Power-Ups, those being the invincibility (render the player invulnerable for a few seconds) and the laser (change the shot type of player to make it easier to defeat the avians). More power-ups, like the double-shot/clone and/or a health replenisher might be implemented.
+    - **F4**: either it can be seen by the colour of the characters or with some kind of bar. The former is more ideal, as it would reduce the visual clutter (should be changed as here a solution is implied)
     - **F5**: the requirement is an acceptance criteria in and of itself. If some kind of pause menu is implemented, then also through it the game could be interrupted
     - **NF1**: the game should feature a frequency of at least 30 FPS, better if reaches 60 FPS
     - **NF2**: if this can be achieved, it will be done. Otherwise, public domain or free-to-use resources might be used
