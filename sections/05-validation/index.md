@@ -37,6 +37,10 @@ For automated testing, a total of 86 tests were implemented, organized into sepa
   | 19               | F1, F3, F4, F5           | Correct initialisation of the Player, PlayerStatusHandler and Score; Player movement and its edge cases; Score variation; damage and end game Conditions; attack capabilities; changes of the Player's status (normal, invulnerable, slowed) |  Unit / Integration |
 
 - ### test_enemy.py
+  | Tests | Requirements | Tested features | Type |
+  |-------|--------------|-----------------|------|
+  | 24 | F1, F2, F5 | Enemy health handling (init, damage, heal, death); generic and specialized attack handlers (Enemy, Bird, Bat) including cooldown and firing patterns; core enemy behavior (state, movement, damage) and attack delegation; Bird formation movement and direction switching; bat descending and homing behavior with sound wave attacks; enemy formation factory (3×10 birds, health/position sanity) | Unit / Integration |
+
 - ### test_projectile.py
   | Tests           | Requirements | Tested features    | Type  |
   |-----------------|------------  |--------------------|-------|
