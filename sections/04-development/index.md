@@ -38,6 +38,12 @@ Pull requests and issues were not used during development.
 
 - How should components be authorized? Why?
     - Examples: RBAC, ABAC, etc.
+  
+The implemented game is standalone, meaning it doesn't require an internet connection to be used. Consequently, no network protocols were adopted, since the game runs entirely locally.
+
+There is no need to manage in-transit data or use a database: scores are simply saved locally in a text file (`scoreboard.txt`). Before starting the game, the user can optionally enter their name, which is then associated with the score achieved.
+
+There are no authentication or authorization mechanisms, as the game is single-player and doesn't require the management of multiple users or different privilege levels.
 
 ## Technological details
 
