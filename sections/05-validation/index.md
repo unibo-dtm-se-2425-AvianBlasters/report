@@ -92,3 +92,16 @@ To isolate components and simulate dependent behaviors during integration testin
     + better would be for acceptance tests to match the acceptance criteria of the requirements
 - Report success rate here
 
+All functional and non-functional requirements have been successfully verified through manual testing of the game. The following acceptance criteria were specifically addressed:
+
+- **F1**: The player can move the car left and right and shoot upward.
+- **F2**: The game features at least two enemy types—birds and bats—with distinct attack modes and movement patterns.
+- **F3**: The game includes at least two power-ups (invulnerability and laser), as well as two additional ones (health recovery and double shoot).
+- **F4**: The player's health status is visually represented through the character's color.
+- **F5**: The game ends when the player is defeated.
+- **NF1**: The game maintains a stable frame rate of 60 FPS by default, with the option to adjust the frame rate via the settings menu.
+- **NF2**: Graphic assets follow a visual style inspired by the 1970s/1980s.
+- **NF3**: The score is displayed in the top-left corner of the screen.
+- **NF4**: Game difficulty can be selected from the main menu.
+- **NF5**: All sounds and music are created using free or public domain resources.
+
