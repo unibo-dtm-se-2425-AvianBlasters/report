@@ -23,34 +23,43 @@ We chose the `unittest` framework primarily for its simplicity and because it is
 For automated testing, a total of 86 tests were implemented, organized into separate files corresponding to each component. These tests validate the game's functionality and requirements, and are categorized as either unit tests or integration tests.
 
 - ### test_entity.py
+
   | Tests           | Requirements | Tested features    | Type  |
   |-----------------|------------  |--------------------|-------|
   | 5               | F1           | Correct creation of Entities; changes to the delta; interaction between different Entities thorugh area overlap; Entity movement |  Unit / Integration |
 
 - ### test_world.py
+
   | Tests           | Requirements | Tested features    | Type  |
   |-----------------|------------  |--------------------|-------|
   | 2               | F1           | Correct initialisation of the World; new Entities being added to the World correctly |  Unit / Integration |
+
 - ### test_player.py
+
   | Tests           | Requirements | Tested features    | Type  |
   |-----------------|------------  |--------------------|-------|
   | 19               | F1, F3, F4, F5           | Correct initialisation of the Player, PlayerStatusHandler and Score; Player movement and its edge cases; Score variation; damage and end game Conditions; attack capabilities; changes of the Player's status (normal, invulnerable, slowed) |  Unit / Integration |
 
 - ### test_enemy.py
+
   | Tests | Requirements | Tested features | Type |
   |-------|--------------|-----------------|------|
   | 24 | F1, F2, F5 | Enemy health handling (init, damage, heal, death); generic and specialized attack handlers (Enemy, Bird, Bat) including cooldown and firing patterns; core enemy behavior (state, movement, damage) and attack delegation; Bird formation movement and direction switching; bat descending and homing behavior with sound wave attacks; enemy formation factory (3×10 birds, health/position sanity) | Unit / Integration |
 
 - ### test_projectile.py
+
   | Tests           | Requirements | Tested features    | Type  |
   |-----------------|------------  |--------------------|-------|
   | 13              | F1           | Correct creation of projectiles; movement and behavior; destruction; validation of parameters; player's shooting system (single/multiple shoot) |  Unit / Integration |
   
 - ### test_power_up.py
+
   | Tests           | Requirements | Tested features    | Type  |
   |-----------------|------------  |--------------------|-------|
   | 20              | F3           | Correct creation of power-ups via `PowerUpFactory`; application and removal of power-up effects; management of power-up collection, timed power-ups, and power-ups that modify the player’s projectile type; validation of parameters. |  Unit / Integration |
+
 - ### test_scoreboard.py
+
   | Tests           | Requirements | Tested features    | Type  |
   |-----------------|------------  |--------------------|-------|
   | 3               | NF3           | Gathering of the scores from the txt file containing the Scoreboard; handling of wrong requests for the getter; addition of new scores to the scoreboard |  Unit |
