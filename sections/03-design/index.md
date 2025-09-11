@@ -128,6 +128,37 @@ It aligns with the real-time game loop while preserving a clean separation betwe
 
 > UML deployment diagrams are welcome here
 
+**Infrastructural Components**
+
+Avian Blasters is a standalone, single-player desktop application that runs entirely on the user's machine in a single Python process. There are no network protocols or external services involved; persistent data is limited to the local scoreboard file. 
+
+**Component Distribution (Network and Placement)**
+
+- All components (presentation, game logic, persistence) execute on the same host (desktop/laptop).
+- Single process, in-memory collaboration via direct method calls/objects.
+-No inter-machine distribution; no servers, brokers or databases deployed remotely.
+-Local filesystem only; scoreboard persisted to a text file (e.g., assets/scoreboard.txt).
+
+**Component Discovery**
+
+Since all components exist within the same process and memory space, they communicate through direct method calls and object references. No service discovery, DNS, or load balancing is required. 
+
+**Naming of Components**
+
+Standard Python module and class naming conventions are used. 
+
+- Modules: snake_case (e.g., game_controller_impl.py, sprite_manager_enemy.py)
+
+- Classes: PascalCase (e.g., GameControllerImpl, SpriteManagerEnemy)
+
+- Methods: snake_case (e.g., update_game_state(), render_world())
+
+- Files/Assets: relative paths within the project (e.g., assets/scoreboard.txt, sprite atlases).
+
+![Deployment Architecture ](../../pictures/Deployment Architecture.png)
+
+
+
 ## Modelling
 
 ### Domain driven design (DDD) modelling
