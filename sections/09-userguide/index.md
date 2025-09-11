@@ -18,18 +18,11 @@ This section explains how to use the software (from the user perspective, and as
     - [Game](#game)
 - [Story](#story)
 - [Main Menu](#main-menu)
-    - [Name](#name)
-    - [Play](#play)
-    - [Difficulty](#difficulty)
-    - [FPS](#fps)
-    - [Scoreboard](#scoreboard)
-    - [Reset](#reset)
-    - [Quit](#quit)
 - [Scoreboard Menu](#scoreboard-menu)
 - [Gameplay](#gameplay)
     - [Car states](#car-states)
     - [Avians](#avians)
-    - [Power-Upds](#power-ups)
+    - [Power-Ups](#power-ups)
     - [Projectiles](#projectiles)
 - [Characters](#characters)
     - [Secondary Characters](#seconday-characters)
@@ -104,6 +97,9 @@ Resets the Scoreboard to a default one.
 
 **PLEASE NOTE**: this change is irreversible!
 
+### Volume:
+Allows the user to activate or deactivate the music and sound effects of the game.
+
 ### Quit:
 Closes the game in its entirety.
 
@@ -129,7 +125,7 @@ Mr. Odie in his trused Jolly Runner must fend off the Avians for as long as poss
 2) attacking with the car's projectiles.
 3) taking advantage of the power-ups offered by general Pfeffer and his forces.
 
-The Jolly Jumper will be defeated if:
+The Jolly Runner will be defeated if:
 1) it is hit when its colour is red
 2) if an Avian touches it
 
@@ -149,11 +145,11 @@ During the game the following will be shown:
 
 ![Yellow Jolly Runner](../../pictures/car_yellow.png)
 
-**Red**: be careful! One more hit and Jolly Runner will never be the same again and the game will end. Starting colour on hard difficulty.
+**Red**: be careful! One more hit and, not only Jolly Runner will never be the same again, but also the game will end. Starting colour on hard difficulty.
 
 ![Red Jolly Runner](../../pictures/car_red.png)
 
-**Grey**: the Jolly Runner has been hit and is invulnerable to damage for a brief time.
+**Grey**: the Jolly Runner has been hit and it is invulnerable to damage for a brief time.
 
 ![Gray Jolly Runner](../../pictures/car_damaged.png)
 
@@ -169,7 +165,11 @@ During the game the following will be shown:
 
 **Birds**: these Pidgeon-esque creatures attack using normal projectiles and like to fly in waves (or better flocks). Their goal is to reach the Jolly Runner, causing an automatic defeat. If a wave is defeated in its entirety, a new one will appear shortly.
 
+![Birds](../../pictures/birds.png)
+
 **Bats**: these flying mice appear once in a while to harass the Jolly Runner's progress. Although they will not try to touch the Jolly Runner, they will try to slow it down using their characteristic sound waves, so that their fellow Avians can more easily damage the poor little car.
+
+![Bats](../../pictures/bats.png)
 
 Much like the Jolly Jumper, their health is indicated by their colour:
 - Green: they need to be hit thrice
@@ -184,11 +184,19 @@ When an Avian is defeated a Power-Up might drop. It can be one of the following:
 
 **Drop**: if the Jolly Runner collects this enhanced drop, its health will be fully recovered to the maximum allowed by the selected difficulty level.
 
+![Drop](../../pictures/drop.png)
+
 **Star**: based off an idea of general Pfeffer, this star shaped gadget grants the Jolly Runner full invulnerability for a brief amount of time. Use it wisely!
 
-**Laser**: collecting this powerful gadget grants total annihilation of the collector's enemies. It will shoot a continuous laser for a limited amount of time. It can turn the tide qucikly if used properly.
+![Star](../../pictures/star.png)
 
-**Double Fire**: grants the Jolly Jumper a double shot, allowing the attacks to cover a wider area, and more easily hit more targets.
+**Laser Gun**: collecting this powerful gadget grants total annihilation of the collector's enemies. It will shoot a continuous laser for a limited amount of time. It can turn the tide qucikly if used properly.
+
+![Laser Gun](../../pictures/laser_gun.png)
+
+**Double Fire**: grants the Jolly Runner a double shot, allowing the attacks to cover a wider area, and more easily hit more targets.
+
+![Double Fire](../../pictures/double_fire.png)
 
 **Careful**: by collecting a power-up, the current one's effects (besides the drop's) will be removed. Consider carefully whether it is a good idea to change power-up or not.
 
@@ -196,15 +204,21 @@ When an Avian is defeated a Power-Up might drop. It can be one of the following:
 
 **Normal**: the normal projectile used by the Jolly Runner and the Avians. Once it hits its target it vanishes.
 
+![Normal Projectile](../../pictures/normal.png)
+
 **Laser**: the special projectile usable by the Jolly Runner when a Laser Power-Up has been collected. It destroys any Avian its path, but it is only temporary. **Careful**: it does not destroy enemy projectiles!
+
+![Laser Projectile](../../pictures/laser.png)
 
 **Sound wave**: the porjectile shot by Bats. If it comes in contact with the Jolly Runner, it will slow it down and make it harder to move around.
 
+![Sound Wave Projectile](../../pictures/sound_wave.png)
+
 ## Characters
 
-**Mr. Odie**: what many would call the unexpected guy at the unexpected time. A normal guy who ends up in odd situations and magaes to find a unique way out. Seems like he can not get a bad day. There is no day in which we does not enjoy a ride in his car, the **Jolly Runner**, that accompanies him in his quests, so he does his best not to stain it. Also, Odie has a partner named **Calamity Jane** with whom he goes on most of his misadventures. Apparently his first name is Ulysses, but everyone calls him Odie: likely someone does not like latinised names originating from greek myths.
+**Mr. Odie**: what many would call the unexpected guy at the unexpected time. A normal guy who ends up in odd situations and manages to find a unique way out. Seems like he can not get a bad day. There is no day in which we does not enjoy a ride in his car, the **Jolly Runner**, that accompanies him in his quests, so he does his best not to stain it. Also, Odie has a partner named **Calamity Jane** with whom he goes on most of his misadventures. Apparently his first name is Ulysses, but everyone calls him Odie: likely someone does not like latinised names originating from greek myths.
 
-**Avians**: a group comprised of various flying creatures who have a specific goal: ruining other people's day. They do this by staining, which annoys most other populations to no end more than anything. Let's say, most would not want an Avian as a neighbour, especially if you have a car parked outside.
+**Avians**: a group comprised of various flying creatures who have a specific goal: ruining other people's day and laughing about it. They do this by staining, which annoys most other populations to no end more than anything. Let's say, most would not want an Avian as a neighbour, especially if you have a car parked outside.
 
 **Birds**: the main group inside the Avians. They are the most numerous and attack in waves, so that when the enemy expects to have defeated them, a new one appears, taking them by surprise (and never ending annoyance). Some say they are infinite, but it would take a while to test that out, would it not? As far as we know, it could also be that the Birds themselves are few, yet immortal. They apparently like bread and croissants, but it does them no good for their glucouse, so try not to give it to them, unless you wish to have that on your resume.
 
@@ -217,3 +231,9 @@ When an Avian is defeated a Power-Up might drop. It can be one of the following:
 **General Pfeffer**: the leader of the Earthling forces fending off the Avians. He often relies on Mr. Odie and Calamity Jane in the weirdest situations: for example he called them last week so they could tell him how to prepare green tea. Despite his clumsiness, he still magaes to be very organised and leads his forces to great effect, providing input for some items they develop, like the so called Power-Ups. According to rumors, his reason for fighting is due to some Avians staining his car and his shirt before a date, which would not be the first (or the last) time this has happened to an Earthling.
 
 ## Credits
+
+...
+
+During the course of development (and the game proper) no Avian or Earthling was (or gets) hurt. 
+
+On the other hand, the cars have indeed seen stainless days.
