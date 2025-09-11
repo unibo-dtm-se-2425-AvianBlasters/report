@@ -175,9 +175,9 @@ Invariants: exactly one Player; entities must be registered through the world; c
 
 - Projectile: owner (player/enemy), type, damage, direction, TTL
 
--PowerUp: type, duration/effect.
+- PowerUp: type, duration/effect.
 
--Wave: formation pattern, remainig enemies, spawn cadence. 
+- Wave: formation pattern, remainig enemies, spawn cadence. 
 
 **Value Objects**
 
@@ -247,7 +247,7 @@ It transform domain state/events into frames, HUD, and feedback without altering
 
 **Repositories**
 
-- ScoreboardRepository : file-backed storage (e.g., assets/scoreboard.txt ).
+- ScoreboardRepository : file-backed storage (e.g., assets/scoreboard.txt).
 
 **Domain Events (handled/emitted)**
 
