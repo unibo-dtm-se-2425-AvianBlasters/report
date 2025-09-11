@@ -26,13 +26,13 @@ Ideally, the design should be the same, regardless of the technological choices 
 
 We adopt a layered architecture with object-oriented design. This choice provides:
 
-    - Separation of concerns: clear boundaries between presentation, game logic, and data/persistence.
+- Separation of concerns: clear boundaries between presentation, game logic, and data/persistence.
 
-    - Maintainability and testability: each layer has focused responsibilities and can be tested in isolation.
+- Maintainability and testability: each layer has focused responsibilities and can be tested in isolation.
 
-    - Evolutionary flexibility: UI, rules, and storage can evolve independently with stable interfaces.
+- Evolutionary flexibility: UI, rules, and storage can evolve independently with stable interfaces.
 
-    - Pedagogical clarity: it demonstrates fundamental software engineering principles familiar to most developers.
+- Pedagogical clarity: it demonstrates fundamental software engineering principles familiar to most developers.
 
 Why not other styles?
 
@@ -57,11 +57,11 @@ The project adopts a 3-tier architecture(Presentation, Business Logic, Data) wit
     - SpriteManager: 
 
     Handles sprite loading, animation frames and draw calls.
-    - SpriteManagerPlayer: Player sprite rendering and animation
-    - SpriteManagerEnemy: Enemy sprite rendering (Bird/Bat variants)
-    - SpriteManagerProjectile: Projectile sprite rendering
-    - SpriteManagerPowerUp: Power-up sprite rendering
-    - DefaultSpriteManager: Fallback sprite rendering
+    SpriteManagerPlayer: Player sprite rendering and animation
+    SpriteManagerEnemy: Enemy sprite rendering (Bird/Bat variants)
+    SpriteManagerProjectile: Projectile sprite rendering
+    SpriteManagerPowerUp: Power-up sprite rendering
+    DefaultSpriteManager: Fallback sprite rendering
 
     - UIRenderer (→ UIRendererImpl): 
 
@@ -109,10 +109,12 @@ The project adopts a 3-tier architecture(Presentation, Business Logic, Data) wit
     Key Methods: add_score(), get_scores()
     Storage: File-based (assets/scoreboard.txt)
 
+
 **Motivation for 3-tier + MVC**
 
 It aligns with the real-time game loop while preserving a clean separation between rendering, control/orchestration, and state. It keeps dependencies pointing inward (UI → controller → model), supports unit testing of controllers/models without renderer, and allows future substitution (e.g., different renderer or storage) with minimal impact. 
 
+![Layered Architecture](../../pictures/ComponentDiagram.png)
 
 ## Infrastructure (mostly applies to distributed systems)
 
@@ -136,6 +138,132 @@ It aligns with the real-time game loop while preserving a clean separation betwe
 - What are the relavant domain events in each context?
 
 > Context map diagrams are welcome here
+
+**Bounded Contexts**
+
+We partition the domain into three bounded contexts:
+
+1. **Gameplay Context (Core Domain)** : rules, mechanics, entities, collisions, waves.
+
+2. **Presentation Context (Supporting Subdomain)** : rendering, HUD, animations, view models.
+
+3. **Persistence/Scoring Context (Generic Subdomain)** : durable high-scores and related queries.
+
+**Context relationships (high level):**
+
+- Gameplay → Presentation: Gameplay publishes domain events that the Presentation consumes to render the current state.
+
+- Gameplay → Persistence: Gameplay emits score-related events; Persistence records and queries them.
+
+- Presentation → Gameplay: User input is translated into commands directed at Gameplay.
+
+**Domain Concepts by Context**
+
+1. **Gameplay Context (Core Domain)**
+
+**Aggregate roots and aggregates**
+
+- World (aggregate root): authoritative state and lifecycle of in-world objects. 
+Invariants: exactly one Player; entities must be registered through the world; collisions are resolved at most once per tick; projectiles have owners and TTL.
+
+
+**Entities (inside World)**
+
+- Player : health, position, score buffer, active powerups.
+
+- Enemy : base type with variants (Bird, Bat);Health, position, movement state, attack cooldown
+
+- Projectile: owner (player/enemy), type, damage, direction, TTL
+
+-PowerUp: type, duration/effect.
+
+-Wave: formation pattern, remainig enemies, spawn cadence. 
+
+**Value Objects**
+
+- Position (x,y), Velocity, Direction; Bounding Box/ Area (Collision)
+- Health (current,max); Damage; Score (non-persistent, in-run points)
+- Types (EnemyType, ProjectileType, PowerUpType); TimeStep dt.
+
+**Domain Services**
+- Collision Service: Collision detection and resolution across aggregates.
+- Spawn Service: Schedles/mints enemies and waves according to rules.
+- Scoring Services: Converts in-run events to score deltas (pre-persistence).
+
+**Factories**
+- EnemyFactory, ProjectileFactory, PowerUpFactory,WaveFactory: create valid instances honoring invariants.
+
+**Repositories**
+- WorldRepository (in-memory): snapshot/load transient world state (useful for testing, pausing).
+
+**Domain Events**
+- GameStarted, ProjectileFired, EnemySpawned, EnemyDefeated
+- PlayerDamaged, PlayerDied, PowerUpCollected, WaveCompleted, GameOver.
+
+2. **Presentation Context (Supporting)**
+
+It transform domain state/events into frames, HUD, and feedback without altering rules.
+
+**Aggregates/Entities**
+
+- RenderScene (aggregate root): currect frame graph (layers, camera, UI).
+- SpriteManager* : sprite/animation resources per entity family.
+- UIOverlay/HUD: health, score, game over, pause.
+
+**Value Objects**
+
+- Spriteld, Frame, Animation, Viewport, Color, Dimensions, TextLabel. 
+
+**Services**
+
+- RenderingService: composes scene graph from domain read models.
+- AnimationService: advances sprite timelines.
+
+**Repositories**
+
+- SpriteRepository: file based asset catalogue.
+
+**Domain Events**
+
+- EntityAppeared/Updated/Removed, HealthChanged,ScoreUpdated, GameStateChanged.
+
+3. **Persistence/Scoring Context (Generic)**
+
+**Aggregate roots and aggregates**
+
+- Scoreboard (aggregate root): collection of ScoreEntry.
+
+**Entities**
+
+- ScoreEntry: (PlayerName, points, difficulty, timestamp).
+
+**Value Objects**
+
+-ScorePoints, PlayerName, Difficulty, RecordedAt.
+
+**Services**
+
+- ScoreboardService; Manages score persistence
+
+**Repositories**
+
+- ScoreboardRepository : file-backed storage (e.g., assets/scoreboard.txt ).
+
+**Domain Events (handled/emitted)**
+
+- ScoreAdded: When a new high score is recorded.
+- ScoreboardLoaded:  When scores are retrieved from storage.
+
+**Context Map**
+
+**Upstream/Downstream and Translation Patterns**
+
+- Gameplay is upstream to both Presentation and persistence (it owns the domain language and publishes events).
+- Presentation is downstream conformist: it adopts Gameplay's published language and translates events into view models.
+- Persistence is downstream via an open-host/published language: it listens to score-related events and persists them.
+- Presentation → Gameplay uses an ACL (anti-corruption layer) for input: UI terms (keys, buttons) are translated into commands (Moveleft, shoot, pause). 
+
+![Context Map](../../pictures/Context_Diagram_DDD.png)
 
 ### Object-oriented modelling
 
