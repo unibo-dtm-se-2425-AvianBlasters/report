@@ -8,6 +8,8 @@ nav_order: 2
 
 The project envisions the development of a desktop game application with a GUI inspired by arcade games such as Space Invaders and Galaga.
 
+![Cover Art](../../pictures/Avian_Blasters_Final.png)
+
 In the game the player controls a car that can move left and right along the bottom of the screen and that can shoot upward to defeat never-ending waves of approaching avian enemies that are trying to ruin and/or stain your new car. To fight back, the player can shoot upward. The car has multiple health points. As the game is endless in nature, it ends either when the player character has
 no health points left or when an enemy is able to touch them.
 
