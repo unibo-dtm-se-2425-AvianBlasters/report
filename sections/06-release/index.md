@@ -11,6 +11,17 @@ nav_order: 7
 - How are they released (e.g. manually, automatically, etc.)?
    + report the configuration steps and commands to run to release the artefacts
 
+The Avian Blasters project codebase produces twi main types of artifacts:
+- **sdist** (source distribution), which is the package containing the source code;
+- **wheel** (binary distribution), which is the precompiled package ready for installation. 
+
+In addition, the repository contains a `Dockerfile`, which defines the configuration needed to create a Docker image for a possible release on Docker Hub. 
+The artifacts are primarily distributed on PypI, so any user can install the package using the command: `pip install Avian_Blasters`.
+In addition to PyPI, the source code is available on GitHub, allowing developers to download the repository directly or integrate it as a dependency via Git. 
+
+The release process is fully automated via GitHub Actions: each push to the `main` or `master` branch runs the `check.yaml` workflow, which starts the test suite, followed by the `deploy.yaml` workflow, which builds the packages and publishes them to PyPI via Twine.
+Each release is associated with a Git tag in the format `X.Y.Z`. The tag, once pushed to GitHub, automatically triggers the release pipeline.
+
 ## Choice of the license
 
 - Which license did you choose for your artefacts? Why?
