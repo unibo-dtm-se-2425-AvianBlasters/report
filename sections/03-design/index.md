@@ -22,7 +22,7 @@ Ideally, the design should be the same, regardless of the technological choices 
 > UML Components diagrams are welcome here
 
 
-**Architectural Style**
+### Architectural Style
 
 We adopt a layered architecture with object-oriented design. This choice provides:
 
@@ -32,8 +32,6 @@ We adopt a layered architecture with object-oriented design. This choice provide
 
 - Evolutionary flexibility: UI, rules, and storage can evolve independently with stable interfaces.
 
-- Pedagogical clarity: it demonstrates fundamental software engineering principles familiar to most developers.
-
 Why not other styles?
 
 - Event-based: It would add unnecessary complexity for a single-player game with straightforward game loop.
@@ -42,79 +40,21 @@ Why not other styles?
 
 - Microservices: It is overkill for a single-player desktop application
 
-**Detailed Architecture: N-Tier with MVC Pattern**
+### Detailed Architecture: N-Tier with MVC Pattern
 
-The project adopts a 3-tier architecture(Presentation, Business Logic, Data) with  the Model-View-Controller (MVC) pattern. 
-
-1. **Presentation Tier (View Layer)**
-
-    - GameView (→ GameViewImpl): 
-
-    primary rendering of world and UI.
-    Key methods: renderWorld(), renderEntity(entity), updateDisplay().
-    Depends on: SpriteManager, UIRenderer.
-
-    - SpriteManager: 
-
-    Handles sprite loading, animation frames and draw calls.
-    SpriteManagerPlayer: Player sprite rendering and animation
-    SpriteManagerEnemy: Enemy sprite rendering (Bird/Bat variants)
-    SpriteManagerProjectile: Projectile sprite rendering
-    SpriteManagerPowerUp: Power-up sprite rendering
-    DefaultSpriteManager: Fallback sprite rendering
-
-    - UIRenderer (→ UIRendererImpl): 
-
-    Manages HUD elements (score, health, game over screen)
-    Key Methods: render_score(), render_health(), render_game_over()
-
-2. **Business Logic Tier (Controller Layer)**
-    
-    - GameController (→ GameControllerImpl): 
-    
-    Orchestrates game flow and coordinates between layers.
-    Key Methods: run(), update_game_state(), handle_input()
-
-    - InputHandler (→ InputHandlerImpl): 
-    
-    maps raw input to game commands
-    Key Methods: handle_events(), process_input()
-    Supports: Keyboard input (movement, shooting, pause, quit)
-
-    - SoundManager (→ SoundManagerImpl): 
-    
-    sound effects and music playback. 
-    Key Methods: play_sound_effect(), play_music()
-        
-
-3. **Data Tier (Model Layer)** 
-
-    - World (→ WorldImpl): 
-    
-    Manages game entities and state
-    Key Methods: get_*(), add_*(), remove_*()
-    Manages: All game entities (players, enemies, projectiles, power-ups)
-
-    - Entities: 
-    
-    Game objects (Player, Enemy, Projectile, PowerUp)
-    Player: Player character with health, score, power-ups
-    Enemy: Base enemy class with Bird and Bat implementations
-    Projectile: Player and enemy projectiles with different types
-    PowerUp: Temporary power-ups (laser, invulnerability, etc.)
-
-    - Scoreboard (→ ScoreboardImpl): 
-    
-    Handles persistent data
-    Key Methods: add_score(), get_scores()
-    Storage: File-based (assets/scoreboard.txt)
-
-
-**Motivation for 3-tier + MVC**
-
-It aligns with the real-time game loop while preserving a clean separation between rendering, control/orchestration, and state. It keeps dependencies pointing inward (UI → controller → model), supports unit testing of controllers/models without renderer, and allows future substitution (e.g., different renderer or storage) with minimal impact. 
+The architecture is based on a 3-tier model (Presentation, Business Logic, and Data) with the Model-View-Controller (MVC) pattern implemented at the boundary between the Presentation and Business Logic tiers. This design ensures a clear separation of concerns, decoupling rendering (View) from orchestration (Controller) and state management (Model). This inward-pointing dependency structure (UI → Controller → Model) enables robust unit testing of controllers and models without needing a renderer and facilitates the easy substitution of components like different renderers or storage systems with minimal impact. The architecture aligns seamlessly with a real-time game loop while maintaining its clean, modular structure.
 
 ![Layered Architecture](../../pictures/ComponentDiagram.png)
+
+### Responsibilities of architectural components
+
+- GameViewImpl / SpriteManager* — compose and render frames; manage sprites/animations; draw HUD via UIRendererImpl.
+
+- GameControllerImpl — main loop, input coordination, state updates, audio triggers; InputHandlerImpl maps device events to commands.
+
+- WorldImpl — authoritative game state and entity lifecycle (Player, Enemies—Bird/Bat, Projectiles, PowerUps); ScoreboardImpl persists scores (local file).
+
+> See Modelling → Object-oriented modelling for class details; see Modelling → DDD for bounded contexts and domain events.
 
 ## Infrastructure (mostly applies to distributed systems)
 
@@ -128,22 +68,22 @@ It aligns with the real-time game loop while preserving a clean separation betwe
 
 > UML deployment diagrams are welcome here
 
-**Infrastructural Components**
+### Infrastructural Components
 
 Avian Blasters is a standalone, single-player desktop application that runs entirely on the user's machine in a single Python process. There are no network protocols or external services involved; persistent data is limited to the local scoreboard file. 
 
-**Component Distribution (Network and Placement)**
+### Component Distribution (Network and Placement)
 
 - All components (presentation, game logic, persistence) execute on the same host (desktop/laptop).
 - Single process, in-memory collaboration via direct method calls/objects.
 -No inter-machine distribution; no servers, brokers or databases deployed remotely.
 -Local filesystem only; scoreboard persisted to a text file (e.g., assets/scoreboard.txt).
 
-**Component Discovery**
+### Component Discovery
 
 Since all components exist within the same process and memory space, they communicate through direct method calls and object references. No service discovery, DNS, or load balancing is required. 
 
-**Naming of Components**
+### Naming of Components
 
 Standard Python module and class naming conventions are used. 
 
@@ -155,9 +95,7 @@ Standard Python module and class naming conventions are used.
 
 - Files/Assets: relative paths within the project (e.g., assets/scoreboard.txt, sprite atlases).
 
-![Deployment Architecture ](../../pictures/Deployment Architecture.png)
-
-
+![Deployment Architecture](../../pictures/DeploymentArchitecture.png)
 
 ## Modelling
 
@@ -170,17 +108,17 @@ Standard Python module and class naming conventions are used.
 
 > Context map diagrams are welcome here
 
-**Bounded Contexts**
+#### **Bounded Contexts**
 
 We partition the domain into three bounded contexts:
 
-1. **Gameplay Context (Core Domain)** : rules, mechanics, entities, collisions, waves.
+**1. Gameplay Context (Core Domain)** : rules, mechanics, entities, collisions, waves.
 
-2. **Presentation Context (Supporting Subdomain)** : rendering, HUD, animations, view models.
+**2. Presentation Context (Supporting Subdomain)** : rendering, HUD, animations, view models.
 
-3. **Persistence/Scoring Context (Generic Subdomain)** : durable high-scores and related queries.
+**3. Persistence/Scoring Context (Generic Subdomain)** : durable high-scores and related queries.
 
-**Context relationships (high level):**
+#### **Context relationships (high level):**
 
 - Gameplay → Presentation: Gameplay publishes domain events that the Presentation consumes to render the current state.
 
@@ -188,9 +126,9 @@ We partition the domain into three bounded contexts:
 
 - Presentation → Gameplay: User input is translated into commands directed at Gameplay.
 
-**Domain Concepts by Context**
+#### **Domain Concepts per Context**
 
-1. **Gameplay Context (Core Domain)**
+**1. Gameplay Context (Core Domain)**
 
 **Aggregate roots and aggregates**
 
@@ -231,7 +169,7 @@ Invariants: exactly one Player; entities must be registered through the world; c
 - GameStarted, ProjectileFired, EnemySpawned, EnemyDefeated
 - PlayerDamaged, PlayerDied, PowerUpCollected, WaveCompleted, GameOver.
 
-2. **Presentation Context (Supporting)**
+**2. Presentation Context (Supporting)**
 
 It transform domain state/events into frames, HUD, and feedback without altering rules.
 
@@ -258,7 +196,7 @@ It transform domain state/events into frames, HUD, and feedback without altering
 
 - EntityAppeared/Updated/Removed, HealthChanged,ScoreUpdated, GameStateChanged.
 
-3. **Persistence/Scoring Context (Generic)**
+**3. Persistence/Scoring Context (Generic)**
 
 **Aggregate roots and aggregates**
 
@@ -285,7 +223,7 @@ It transform domain state/events into frames, HUD, and feedback without altering
 - ScoreAdded: When a new high score is recorded.
 - ScoreboardLoaded:  When scores are retrieved from storage.
 
-**Context Map**
+#### **Context Map**
 
 **Upstream/Downstream and Translation Patterns**
 
@@ -304,6 +242,119 @@ It transform domain state/events into frames, HUD, and feedback without altering
 
 > UML class diagrams are welcome here
 
+
+This section provides the system's principal classes, their responsibilities, salient attributes/methods, and the relationships among them. The modelling aligns with the layered (Presentation/ Business Logic/ Data) + MVC architecture descibed in the previous sections. 
+
+#### Main data types (classes)
+
+#### **Core domain (gameplay)**
+
+- Entity (Abstract Base) / EntityImpl (Concrete Implementation)
+  Responsibility: minimal game object contract (identity, spatial footprint, lifecycle).
+  Key attributes: _area , _type, _active
+  Key methods: get_area(), get_type (), move(dx,dy,width,height), destroy(), is_active()
+
+- Character (Abstract Base) / CharacterImpl (Concrete Implementation)
+  Responsibility: movable, damageable actors with attacks.
+  Key attributes: _health_handler, _attack_handler , _speed, _position , _area 
+  Key methods: get_health(), take_damag(amount), is_dead(), shoot(), move()
+
+- Player (Abstract Base) / PlayerImpl (Concrete Implementation)
+  Responsibility: user-controlled character.
+  Key attributes: _score , _status_handler , _power_up_handler , _limit_left , _limit_right 
+  Key methods: move(direction), shoot(),is_touched(other),ger_score() 
+
+- Enemy (Abstract Base) / EnemyImpl (Concrete Implementation), Bird, Bat
+  Responsibility: opponents with variant behaviors.
+  Representative attributes:
+  EnemyImpl: Inherits from Character and Enemy + _laser_damage_timer;
+  Bird: _formation_direction, _horizontal_accumulator, _vertical_accumulator;
+  Bat: _movement_state, _player_y, _horizontal_direction.
+  Key methods: shoot(), move(), set_player_position (y).
+
+- Item (Abstract Base) / ItemImpl (Concrete Implementation)
+  Responsibility: base for non-actor interactables (projectiles, power-ups).
+
+- Projectile (Abstract Base) / ProjectImpl (Concrete Implementation)
+  Responsibility: time-limited damaging entities.
+  Key attributes: _projectile_type, _damage
+  Key methods: get_projectile_type(), get_damage(), move()
+
+- PowerUp (Abstract Base) / PowerUpImpl (Concrete Implementation)
+  Responsibility: temporary effects applied to the player.
+  Key attributes: _power_up_type, _duration.
+  Key methods: get_power_up_type(), apply(player), remove(player).
+
+- HealthHandler (Abstract Base) / HealthHandlerImpl (Concrete Implementation)
+  Responsibility: encapsulate health arithmetic and invariants.
+  Key attributes: _max_health, _current_health.
+  Key methods: take_damage(amount), heal(amount), is_dead(), get_current_health().
+
+- AttackHandler (Abstract Base) / GeneralAttackHandlerImpl (Concrete Implementation), EnemyAttackHandler, PlayerAttackHandler
+  Responsibility: fire-rate/cooldown logic and projectile creation.
+  Key attributes: _cooldown_handler, _fire_chance.
+  Key methods: try_attack(), update(dt), set_player_position(y).
+
+- World (Abstract Base) / WorldImpl (Concrete Implementation)
+  Responsibility: aggregate root for in-game state and entity lifecycle.
+  Key attributes: _entities.
+  Key methods: get_all_entities(), add_entities(*entities), get_players(), get_enemies(), remove_entity(entity).
+
+#### **Application / presentation support**
+
+- GameController (abstract) / GameControllerImpl
+  Responsibility: game loop orchestration and coordination among layers.
+  Key attributes: _world, _view, _input_handler, _player.
+  Key methods: initialize(), run(), update_game_state(dt), handle_input().
+
+- InputHandler (→ InputHandlerImpl)
+  Responsibility: translate device input into domain commands.
+  Key methods: handle_events(), process_input().
+
+- SoundManager (→ SoundManagerImpl)
+  Responsibility: SFX/music playback.
+  Key methods: play_sound_effect(id), play_music(track).
+
+- SpriteManager (abstract) / AbstractSpriteManager with specializations
+  Responsibility: sprite/animation loading and draw calls for entity families.
+
+- UIRenderer (→ UIRendererImpl)
+  Responsibility: HUD and overlay rendering (score, health, game-over).
+  Key methods: render_score(), render_health(), render_game_over().
+
+#### **Persistence**
+
+- Scoreboard (→ ScoreboardImpl)
+  Responsibility: durable high-score collection.
+  Key methods: add_score(player, value), get_scores(); file-backed (assets/scoreboard.txt).
+
+#### Relationships among data types
+
+**- Inheritance**
+
+    Entity (Abstract) ├── EntityImpl (Concrete) ├── Character (Abstract) │ ├── CharacterImpl (Concrete) │ ├── Player (Abstract) │ │ └── PlayerImpl (Concrete) │ └── Enemy (Abstract) │ ├── EnemyImpl (Concrete) │ ├── Bird (Concrete) │ └── Bat (Concrete) └── Item (Abstract) ├── ItemImpl (Concrete) ├── Projectile (Abstract) │ └── ProjectileImpl (Concrete) └── PowerUp (Abstract) └── PowerUpImpl (Concrete)
+
+    - Character is-a Entity; Player is-a Character; Enemy is-a Character; Bird/Bat are Enemy.
+    - Item is a base for Projectile and PowerUp (with concrete implementations).
+
+**- Composition**
+
+    - Character has-a HealthHandler and AttackHandler.
+    - Player has-a StatusHandler, PowerUpHandler, and Score.
+    - World has collections of Entity (players, enemies, projectiles, power-ups).
+
+**- Association / Dependency**
+
+    - GameController → World, InputHandler, UIRenderer, SoundManager, Scoreboard.
+    - SpriteManager uses Entity state to render; UIRenderer reads world/score state.
+    - EnemyAttackHandler and PlayerAttackHandler create Projectile instances (via factories).
+
+**- Factories (creational)**
+
+    - EnemyFactory → Bird, Bat; ProjectileFactory → Projectile (e.g., SoundwaveProjectile); PowerUpFactory → PowerUp.
+
+![Class Diagram](../../pictures/ClassDiagram.png)
+
 ### In case of a distributed system
 
 - How do the domain concepts map to the architectural or infrastuctural components?
@@ -317,6 +368,7 @@ It transform domain state/events into frames, HUD, and feedback without altering
 - Are there domain concepts or data types which represent messages being exchanged between components?
     + e.g. messages between clients and servers, messages between servers, messages between clients
 
+
 ## Interaction
 
 - How do components *communicate*? *When*? *What*?
@@ -325,27 +377,35 @@ It transform domain state/events into frames, HUD, and feedback without altering
 
 > UML sequence diagrams are welcome here
 
-## Behaviour
+This section explains how components communicate, when, and what they exchange, and the interaction patterns they enact.
 
-- How does **each** component *behave* individually (e.g., in *response* to *events* or messages)?
-    + Some components may be *stateful*, others *stateless*
+### Component Interaction
 
-- Which components are in charge of updating the **state** of the system? *When*? *How*?
+This section details the nature of communication and data exchange among the system's components, which is critical for the game's operational integrity.
 
-> UML state diagrams or activity diagrams are welcome here
+#### **Communication Modality**
 
-## Data-related aspects (in case persistent storage is needed)
+Components interact via synchronous Python method calls and object references within a single process. The View reads the Model’s state in a read-only fashion; the Controller orchestrates updates and coordinates subsystems (rendering, audio, persistence). No network messages are used.
 
-- Is there any data that needs to be stored?
-    - *What* data? *Where*? *Why*?
+#### **Timing and Frequency of Interaction**
 
-- How should **persistent data** be **stored**? Why?
-    - e.g., relations, documents, key-value, graph, etc.
+Component interactions are triggered by specific events and occur at predetermined intervals to maintain the real-time nature of the game:
 
-- Which components perform queries on the database?
-    - *When*? *Which* queries? *Why*?
-    - Concurrent read? Concurrent write? Why?
+- Game loop tick: The primary communication occurs once per frame during the game loop tick, targeting a rate of 60 frames per second.
 
-- Is there any data that needs to be shared between components?
-    - *Why*? *What* data?
+- Event-Driven Communication: Interactions are initiated immediately in response to new **user input events** and during significant **state transitions**, such as object collisions, entity destruction, or the activation/deactivation of power-up effects.
+
+- Lifecycle Events: Communication is also vital during the application's initialization and shutdown phases to facilitate proper setup and teardown of components.
+
+#### **Exchanged Data**
+
+The data exchanged between components can be categorized into several distinct types, reflecting their purpose and origin:
+
+- Control Signals: These include commands and actions derived from user input, such as instructions to move, shoot, or toggle game states (e.g., pause/quit).
+
+- State Updates: Information representing changes in the game world, including positions, health values, spawns, despawns, and management of timers and cooldowns.
+
+- Presentation Data: Information specifically formatted for rendering, such as entity lists, derived view information, and values for the Head-Up Display (HUD).
+
+- System Cues: This category includes audio cues (e.g., for firing or impact sounds) and persistence data related to score submissions and queries to the local scoreboard.
 
