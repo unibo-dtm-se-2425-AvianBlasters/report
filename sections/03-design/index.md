@@ -332,26 +332,24 @@ This section provides the system's principal classes, their responsibilities, sa
 
 **- Inheritance**
 
-    Entity (Abstract) ├── EntityImpl (Concrete) ├── Character (Abstract) │ ├── CharacterImpl (Concrete) │ ├── Player (Abstract) │ │ └── PlayerImpl (Concrete) │ └── Enemy (Abstract) │ ├── EnemyImpl (Concrete) │ ├── Bird (Concrete) │ └── Bat (Concrete) └── Item (Abstract) ├── ItemImpl (Concrete) ├── Projectile (Abstract) │ └── ProjectileImpl (Concrete) └── PowerUp (Abstract) └── PowerUpImpl (Concrete)
-
-    - Character is-a Entity; Player is-a Character; Enemy is-a Character; Bird/Bat are Enemy.
-    - Item is a base for Projectile and PowerUp (with concrete implementations).
+- Character is-a Entity; Player is-a Character; Enemy is-a Character; Bird/Bat are Enemy.
+- Item is a base for Projectile and PowerUp (with concrete implementations).
 
 **- Composition**
 
-    - Character has-a HealthHandler and AttackHandler.
-    - Player has-a StatusHandler, PowerUpHandler, and Score.
-    - World has collections of Entity (players, enemies, projectiles, power-ups).
+- Character has-a HealthHandler and AttackHandler.
+- Player has-a StatusHandler, PowerUpHandler, and Score.
+- World has collections of Entity (players, enemies, projectiles, power-ups).
 
 **- Association / Dependency**
 
-    - GameController → World, InputHandler, UIRenderer, SoundManager, Scoreboard.
-    - SpriteManager uses Entity state to render; UIRenderer reads world/score state.
-    - EnemyAttackHandler and PlayerAttackHandler create Projectile instances (via factories).
+- GameController → World, InputHandler, UIRenderer, SoundManager, Scoreboard.
+- SpriteManager uses Entity state to render; UIRenderer reads world/score state.
+- EnemyAttackHandler and PlayerAttackHandler create Projectile instances (via factories).
 
 **- Factories (creational)**
 
-    - EnemyFactory → Bird, Bat; ProjectileFactory → Projectile (e.g., SoundwaveProjectile); PowerUpFactory → PowerUp.
+- EnemyFactory → Bird, Bat; ProjectileFactory → Projectile (e.g., SoundwaveProjectile); PowerUpFactory → PowerUp.
 
 ![Class Diagram](../../pictures/ClassDiagram.png)
 
