@@ -97,7 +97,7 @@ To isolate components and simulate dependent behaviors during integration testin
 - **Player mock**: used for simulating access to handlers such as attack, health and status.
 - **Projectile mock**: used to test power-ups that interact with existing projectiles.
 - **Dummy power-up**: applied to test general logic without applying real effects.
-- **Timer stub**: used for timed power-ups to simulate the passage of time and test the expiration of temporary effects without actual delays.
+- **Timer mock (patch)**: used for timed power-ups to simulate the passage of time and test the expiration of temporary effects without actual delays.
 
 
 
