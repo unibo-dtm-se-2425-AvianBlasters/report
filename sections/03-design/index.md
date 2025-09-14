@@ -184,7 +184,7 @@ It transform domain state/events into frames, HUD, and feedback without altering
 
 **Repositories**
 
-- ScoreboardRepository : file-backed storage (e.g., assets/scoreboard.txt).
+- ScoreboardRepository : file-backed storage (e.g., `assets/scoreboard.txt`).
 
 **Domain Events (handled/emitted)**
 
@@ -211,83 +211,126 @@ This section provides the system's principal classes, their responsibilities, sa
 **Core domain (gameplay)**
 
 - Entity (Abstract Base) / EntityImpl (Concrete Implementation)
+  
   Responsibility: minimal game object contract (identity, spatial footprint, lifecycle).
-  Key attributes: _area , _type, _active
-  Key methods: get_area(), get_type (), move(dx,dy,width,height), destroy(), is_active()
+  
+  Key attributes: `_area` , `_type`, `_active`
+  
+  Key methods: `get_area()`, `get_type ()`, `move(dx,dy,width,height)`, `destroy()`, `is_active()`
 
-- Character (Abstract Base) / CharacterImpl (Concrete Implementation)
+- `Character` (Abstract Base) / `CharacterImpl` (Concrete Implementation)
+  
   Responsibility: movable, damageable actors with attacks.
-  Key attributes: _health_handler, _attack_handler , _speed, _position , _area 
-  Key methods: get_health(), take_damag(amount), is_dead(), shoot(), move()
+  
+  Key attributes: `_health_handler`, `_attack_handler`,`_speed`,`_position` ,`_area`
+  
+  Key methods: `get_health()`, `take_damag(amount)`, `is_dead()`, `shoot()`,`move()`
 
-- Player (Abstract Base) / PlayerImpl (Concrete Implementation)
+- `Player` (Abstract Base) / `PlayerImpl` (Concrete Implementation)
+  
   Responsibility: user-controlled character.
-  Key attributes: _score , _status_handler , _power_up_handler , _limit_left , _limit_right 
-  Key methods: move(direction), shoot(),is_touched(other),ger_score() 
+  
+  Key attributes: `_score` , `_status_handler` , `_power_up_handler` , `_limit_left` , `_limit_right`
+  
+  Key methods: `move(direction)`, `shoot()`,`is_touched(other)`,`get_score()`
 
-- Enemy (Abstract Base) / EnemyImpl (Concrete Implementation), Bird, Bat
+- `Enemy` (Abstract Base) / `EnemyImpl` (Concrete Implementation), Bird, Bat
+  
   Responsibility: opponents with variant behaviors.
+  
   Representative attributes:
-  EnemyImpl: Inherits from Character and Enemy + _laser_damage_timer;
-  Bird: _formation_direction, _horizontal_accumulator, _vertical_accumulator;
-  Bat: _movement_state, _player_y, _horizontal_direction.
-  Key methods: shoot(), move(), set_player_position (y).
+  
+  `EnemyImpl`: Inherits from Character and Enemy + _laser_damage_timer;
+  
+  Bird: `_formation_direction`,`_horizontal_accumulator`,`_vertical_accumulator`;
+  
+  Bat: `_movement_state`, `_player_y`, `_horizontal_direction`.
+  
+  Key methods: `shoot()`, `move()`, `set_player_position (y)`.
 
-- Item (Abstract Base) / ItemImpl (Concrete Implementation)
+- `Item` (Abstract Base) / `ItemImpl` (Concrete Implementation)
+
   Responsibility: base for non-actor interactables (projectiles, power-ups).
 
-- Projectile (Abstract Base) / ProjectImpl (Concrete Implementation)
+- `Projectile` (Abstract Base) / `ProjectImpl` (Concrete Implementation)
+  
   Responsibility: time-limited damaging entities.
-  Key attributes: _projectile_type, _damage
-  Key methods: get_projectile_type(), get_damage(), move()
+  
+  Key attributes: `_projectile_type`, `_damage`
+  
+  Key methods: `get_projectile_type()`, `get_damage()`, `move()`
 
-- PowerUp (Abstract Base) / PowerUpImpl (Concrete Implementation)
+- `PowerUp` (Abstract Base) / `PowerUpImpl` (Concrete Implementation)
+
   Responsibility: temporary effects applied to the player.
-  Key attributes: _power_up_type, _duration.
-  Key methods: get_power_up_type(), apply(player), remove(player).
+  
+  Key attributes: `_power_up_type`, `_duration`.
 
-- HealthHandler (Abstract Base) / HealthHandlerImpl (Concrete Implementation)
+  Key methods: `get_power_up_type()`, `apply(player)`, `remove(player)`.
+
+- `HealthHandler` (Abstract Base) / `HealthHandlerImpl` (Concrete Implementation)
+  
   Responsibility: encapsulate health arithmetic and invariants.
-  Key attributes: _max_health, _current_health.
-  Key methods: take_damage(amount), heal(amount), is_dead(), get_current_health().
+  
+  Key attributes: `_max_health`, `_current_health`.
+  
+  Key methods: `take_damage(amount)`, `heal(amount)`, `is_dead()`, `get_current_health()`.
 
-- AttackHandler (Abstract Base) / GeneralAttackHandlerImpl (Concrete Implementation), EnemyAttackHandler, PlayerAttackHandler
+- `AttackHandler` (Abstract Base) / `GeneralAttackHandlerImpl` (Concrete Implementation), `EnemyAttackHandler`, `PlayerAttackHandler`
+  
   Responsibility: fire-rate/cooldown logic and projectile creation.
-  Key attributes: _cooldown_handler, _fire_chance.
-  Key methods: try_attack(), update(dt), set_player_position(y).
+  
+  Key attributes: `_cooldown_handler`,`_fire_chance`.
+  
+  Key methods: `try_attack()`, `update(dt)`, `set_player_position(y)`.
 
-- World (Abstract Base) / WorldImpl (Concrete Implementation)
+- `World` (Abstract Base) / `WorldImpl` (Concrete Implementation)
+  
   Responsibility: aggregate root for in-game state and entity lifecycle.
-  Key attributes: _entities.
-  Key methods: get_all_entities(), add_entities(*entities), get_players(), get_enemies(), remove_entity(entity).
+  
+  Key attributes: `_entities`.
+  
+  Key methods: `get_all_entities()`, `add_entities(*entities)`, `get_players()`, `get_enemies()`, `remove_entity(entity)`.
 
 **Application / presentation support**
 
-- GameController (abstract) / GameControllerImpl
+- `GameController` (abstract) / `GameControllerImpl`
+
   Responsibility: game loop orchestration and coordination among layers.
-  Key attributes: _world, _view, _input_handler, _player.
-  Key methods: initialize(), run(), update_game_state(dt), handle_input().
 
-- InputHandler (→ InputHandlerImpl)
+  Key attributes: `_world, _view`, `_input_handler`,` _player`.
+
+  Key methods: `initialize()`, `run()`, `update_game_state(dt)`, `handle_input()`.
+
+- `InputHandler (→ InputHandlerImpl)`
+
   Responsibility: translate device input into domain commands.
-  Key methods: handle_events(), process_input().
 
-- SoundManager (→ SoundManagerImpl)
+  Key methods: `handle_events()`, `process_input()`.
+
+- `SoundManager (→ SoundManagerImpl)`
+
   Responsibility: SFX/music playback.
-  Key methods: play_sound_effect(id), play_music(track).
 
-- SpriteManager (abstract) / AbstractSpriteManager with specializations
+  Key methods: `play_sound_effect(id)`, `play_music(track)`.
+
+- `SpriteManager` (abstract) / `AbstractSpriteManager` with specializations
+
   Responsibility: sprite/animation loading and draw calls for entity families.
 
-- UIRenderer (→ UIRendererImpl)
+- `UIRenderer (→ UIRendererImpl)`
+
   Responsibility: HUD and overlay rendering (score, health, game-over).
-  Key methods: render_score(), render_health(), render_game_over().
+
+  Key methods: `render_score()`, `render_health()`, `render_game_over()`.
 
 **Persistence**
 
-- Scoreboard (→ ScoreboardImpl)
+- `Scoreboard (→ ScoreboardImpl)`
+
   Responsibility: durable high-score collection.
-  Key methods: add_score(player, value), get_scores(); file-backed (assets/scoreboard.txt).
+
+  Key methods: `add_score(player, value)`, `get_scores()`; file-backed (`assets/scoreboard.txt`).
 
 **Relationships among data types**
 
@@ -298,19 +341,19 @@ This section provides the system's principal classes, their responsibilities, sa
 
 **- Composition**
 
-- Character has-a HealthHandler and AttackHandler.
-- Player has-a StatusHandler, PowerUpHandler, and Score.
+- Character has-a `HealthHandler` and `AttackHandler`.
+- Player has-a `StatusHandler`, `PowerUpHandler`, and `Score`.
 - World has collections of Entity (players, enemies, projectiles, power-ups).
 
 **- Association / Dependency**
 
-- GameController → World, InputHandler, UIRenderer, SoundManager, Scoreboard.
-- SpriteManager uses Entity state to render; UIRenderer reads world/score state.
-- EnemyAttackHandler and PlayerAttackHandler create Projectile instances (via factories).
+- `GameController → World`, `InputHandler`, `UIRenderer`, `SoundManager`, `Scoreboard`.
+- `SpriteManager` uses Entity state to render; `UIRenderer` reads world/score state.
+- `EnemyAttackHandler` and `PlayerAttackHandler` create Projectile instances (via factories).
 
 **- Factories (creational)**
 
-- EnemyFactory → Bird, Bat; ProjectileFactory → Projectile (e.g., SoundwaveProjectile); PowerUpFactory → PowerUp.
+- `EnemyFactory → Bird, Bat`; `ProjectileFactory → Projectile (e.g., SoundwaveProjectile)`; `PowerUpFactory → PowerUp`.
 
 ![Class Diagram](../../pictures/ClassDiagram.png)
 
@@ -366,25 +409,25 @@ The data exchanged between components can be categorized into several distinct t
 
 The system employs several established interaction patterns to manage communication flow and maintain a clean separation of concerns.
 
-- Model-View-Controller (MVC): This core pattern decouples rendering (View) from game state (Model) and input handling (Controller). The flow is User InputHandlerImpl → GameControllerImpl → WorldImpl → GameViewImpl → Display.
+- Model-View-Controller (MVC): This core pattern decouples rendering (View) from game state (Model) and input handling (Controller). The flow is User `InputHandlerImpl → GameControllerImpl → WorldImpl → GameViewImpl → Display`.
 
-- Observer Pattern: This pattern is used to notify observers (e.g., the View) of state changes in the subject (Model). A GameController detects an entity's state change, and the GameView receives an update notification to render the new visual state.
+- Observer Pattern: This pattern is used to notify observers (e.g., the View) of state changes in the subject (Model). A `GameController` detects an entity's state change, and the `GameView` receives an update notification to render the new visual state.
 
-- Factory Pattern: Used to create new entity instances without exposing the creation logic to the rest of the application. For example, the GameController requests new entities from a ProjectileFactory, which then creates and returns them to the World. EnemyFactory, ProjectileFactory, PowerUpFactory are invoked by the controller or attack handlers to mint domain objects.
+- Factory Pattern: Used to create new entity instances without exposing the creation logic to the rest of the application. For example, the GameController requests new entities from a `ProjectileFactory`, which then creates and returns them to the World. `EnemyFactory`, `ProjectileFactory`, `PowerUpFactory` are invoked by the controller or attack handlers to mint domain objects.
 
 - Command Pattern: This pattern translates user actions into command objects that are executed by a handler. An InputHandler captures a user action, which is then processed by the GameController to create a command for a Player to execute.
 
 ### Detailed Interaction Sequences
 
-- Game Loop Interaction: The main loop orchestrates continuous updates. GameController.run() iteratively calls InputHandler.handle_events(), GameController.update_game_state(), and GameView.render_world() at 60 FPS.
+- Game Loop Interaction: The main loop orchestrates continuous updates. `GameController.run()` iteratively calls `InputHandler.handle_events()`, `GameController.update_game_state()`, and `GameView.render_world()` at 60 FPS.
 
 ![Main game-loop tick](../../pictures/MainGameloop.png)
 
-- Player Shooting: A user's key press is captured by the InputHandler, processed by the GameController, and results in a Player.shoot() method call. This creates a projectile instance via a factory, which is then added to the World and rendered by the GameView.
+- Player Shooting: A user's key press is captured by the `InputHandler`, processed by the `GameController`, and results in a `Player.shoot()` method call. This creates a projectile instance via a factory, which is then added to the World and rendered by the `GameView`.
 
 ![Player Shooting](../../pictures/Playershooting.png)
 
-- Enemy hit → damage, death, score update: A projectile's movement triggers a collision check against an enemy. Upon collision, the Enemy.take_damage() method is called, and if the enemy is destroyed (is_dead()), it is removed from the World, and the player's score is updated.
+- Enemy hit → damage, death, score update: A projectile's movement triggers a collision check against an enemy. Upon collision, the Enemy.`take_damage()` method is called, and if the enemy is destroyed (`is_dead()`), it is removed from the World, and the player's score is updated.
 
 ![Enemy hit](../../pictures/Enemyhit.png)
 
@@ -402,31 +445,31 @@ The system's components are designed with distinct roles, categorized by their s
 
 These components retain information over time and manage a defined internal state. 
 
-- GameControllerImpl: owns the game loop and flow flags (running, paused) and references to the World, Player, View, and I/O subsystems. Responds to normalized actions (move, shoot, pause/quit); advances simulation each frame; triggers rendering/audio; transitions between Running ⇄ Paused and into Game Over. 
+- `GameControllerImpl`: owns the game loop and flow flags (running, paused) and references to the World, Player, View, and I/O subsystems. Responds to normalized actions (move, shoot, pause/quit); advances simulation each frame; triggers rendering/audio; transitions between Running ⇄ Paused and into Game Over. 
 
-- WorldImpl: authoritative container of runtime entities. Adds/removes entities, advances them each tick, resolves collisions, and applies results (damage, destruction, spawns).
+- `WorldImpl`: authoritative container of runtime entities. Adds/removes entities, advances them each tick, resolves collisions, and applies results (damage, destruction, spawns).
 
-- PlayerImpl: maintains position, health, score, status/power-up timers. Moves within limits; fires via attack handler; applies power-ups; enters Invulnerable briefly after damage.
+- `PlayerImpl`: maintains position, health, score, status/power-up timers. Moves within limits; fires via attack handler; applies power-ups; enters Invulnerable briefly after damage.
 
-- Enemy (Bird/Bat): keeps movement/attack state and cooldowns.
+- `Enemy (Bird/Bat)`: keeps movement/attack state and cooldowns.
 Bird follows formation sweeps and periodic descent.
 Bat switches from Descending to Bird-like/Homing based on proximity to the player.
 
-- Handlers: HealthHandler tracks (current,max) and death; AttackHandler/cooldowns decide when a projectile is created; power-up/status handlers manage effect durations.
+- Handlers: `HealthHandler` tracks (current,max) and death; `AttackHandler`/ `cooldowns` decide when a projectile is created; `power-up` / `status` handlers manage effect durations.
 
 **Stateless Components**
 
 These components perform specific actions without retaining any data between calls. 
 
-The InputHandler captures and translates user input into game actions. The SpriteManager provides sprite data on demand for rendering, and the SoundManager triggers audio effects.
+The `InputHandler` captures and translates user input into game actions. The `SpriteManager` provides sprite data on demand for rendering, and the `SoundManager` triggers audio effects.
 
 ### State Update Responsibilities
 
 State updates are managed through a clear hierarchy of responsibilities.
 
-- Primary State Managers: The GameController and World are the main state coordinators. The GameController triggers updates every frame (60 FPS) and manages game flow. The World handles the state of all entities, their interactions, and their lifecycles. Individual entities like the Player and Enemy are responsible for updating their own specific states in response to events or continuous updates.
+- Primary State Managers: The GameController and World are the main state coordinators. The `GameController` triggers updates every frame (60 FPS) and manages game flow. The World handles the state of all entities, their interactions, and their lifecycles. Individual entities like the Player and Enemy are responsible for updating their own specific states in response to events or continuous updates.
 
-- Secondary State Managers: Specialized components such as the PowerUpHandler, ScoreHandler, and HealthHandler manage specific, localized state changes. The PowerUpHandler applies temporary effects, while the ScoreHandler and HealthHandler manage score and health values, respectively, in response to events like enemy destruction or damage.
+- Secondary State Managers: Specialized components such as the `PowerUpHandler`, `ScoreHandler`, and `HealthHandler` manage specific, localized state changes. The `PowerUpHandler` applies temporary effects, while the `ScoreHandler` and `HealthHandler` manage score and health values, respectively, in response to events like enemy destruction or damage.
 
 ### State Transition Diagrams
 
@@ -459,7 +502,7 @@ State updates are managed through a clear hierarchy of responsibilities.
 
 State is handled entirely within the local environment, eliminating the complexity of a distributed system.
 
-- State Persistence: The majority of the game's state (entity positions, health, score) is in-memory and exists only during runtime. The only persistent data is the scoreboard, which is stored in a local text file (assets/scoreboard.txt).
+- State Persistence: The majority of the game's state (entity positions, health, score) is in-memory and exists only during runtime. The only persistent data is the scoreboard, which is stored in a local text file (`assets/scoreboard.txt`).
 
 - State Synchronization: As a single-player, single-process application, there is no distributed state. This design choice removes the need for state synchronization, preventing issues related to consistency, race conditions, or network latency. All state consistency is handled internally by the responsible components.
 
@@ -469,12 +512,9 @@ This section describes the system's data management strategy, including what dat
 
 **Persistent Data and Storage Strategy**
 
-The game requires the storage of high scores for its scoreboard, game configuration for settings, and asset metadata for resources. These are stored locally, with the scoreboard being a simple text file (assets/scoreboard.txt). 
+The game requires the storage of high scores for its scoreboard, game configuration for settings, and asset metadata for resources. These are stored locally, with the scoreboard being a simple text file (`assets/scoreboard.txt`). 
 
-**Storage Type**: **Text File (Key-Value Pairs)**
-- **Format**: Simple text file with structured data
-- **Location**: `assets/scoreboard.txt`
-- **Structure**: 
+**Structure**: 
   ```
   PlayerName,Score,Difficulty,Timestamp
   Player1,1500,Easy,2024-01-15
@@ -531,6 +571,3 @@ Data is shared between components through established patterns to maintain consi
 - Load and display top scores (MenuMenu → High Scores)
 
 ![Load and display score](../../pictures/loadscore.png)
-
-
-
