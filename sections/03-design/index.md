@@ -210,7 +210,7 @@ This section provides the system's principal classes, their responsibilities, sa
 
 **Core domain (gameplay)**
 
-- Entity (Abstract Base) / EntityImpl (Concrete Implementation)
+- `Entity` (Interface) / `EntityImpl` (Concrete Implementation)
   
   Responsibility: minimal game object contract (identity, spatial footprint, lifecycle).
   
@@ -218,7 +218,7 @@ This section provides the system's principal classes, their responsibilities, sa
   
   Key methods: `get_area()`, `get_type ()`, `move(dx,dy,width,height)`, `destroy()`, `is_active()`
 
-- `Character` (Abstract Base) / `CharacterImpl` (Concrete Implementation)
+- `Character` (Interface) / `CharacterImpl` (Concrete Implementation)
   
   Responsibility: movable, damageable actors with attacks.
   
@@ -226,7 +226,7 @@ This section provides the system's principal classes, their responsibilities, sa
   
   Key methods: `get_health()`, `take_damag(amount)`, `is_dead()`, `shoot()`,`move()`
 
-- `Player` (Abstract Base) / `PlayerImpl` (Concrete Implementation)
+- `Player` (Interface) / `PlayerImpl` (Concrete Implementation)
   
   Responsibility: user-controlled character.
   
@@ -234,7 +234,7 @@ This section provides the system's principal classes, their responsibilities, sa
   
   Key methods: `move(direction)`, `shoot()`,`is_touched(other)`,`get_score()`
 
-- `Enemy` (Abstract Base) / `EnemyImpl` (Concrete Implementation), Bird, Bat
+- `Enemy` (Interface) / `EnemyImpl` (Concrete Implementation), Bird, Bat
   
   Responsibility: opponents with variant behaviors.
   
@@ -248,11 +248,11 @@ This section provides the system's principal classes, their responsibilities, sa
   
   Key methods: `shoot()`, `move()`, `set_player_position (y)`.
 
-- `Item` (Abstract Base) / `ItemImpl` (Concrete Implementation)
+- `Item` (Interface) / `ItemImpl` (Concrete Implementation)
 
   Responsibility: base for non-actor interactables (projectiles, power-ups).
 
-- `Projectile` (Abstract Base) / `ProjectImpl` (Concrete Implementation)
+- `Projectile` (Interface) / `ProjectileImpl` (Concrete Implementation)
   
   Responsibility: time-limited damaging entities.
   
@@ -260,7 +260,7 @@ This section provides the system's principal classes, their responsibilities, sa
   
   Key methods: `get_projectile_type()`, `get_damage()`, `move()`
 
-- `PowerUp` (Abstract Base) / `PowerUpImpl` (Concrete Implementation)
+- `PowerUp` (Interface) / `PowerUpImpl` (Concrete Implementation)
 
   Responsibility: temporary effects applied to the player.
   
@@ -268,7 +268,7 @@ This section provides the system's principal classes, their responsibilities, sa
 
   Key methods: `get_power_up_type()`, `apply(player)`, `remove(player)`.
 
-- `HealthHandler` (Abstract Base) / `HealthHandlerImpl` (Concrete Implementation)
+- `HealthHandler` (Interface) / `HealthHandlerImpl` (Concrete Implementation)
   
   Responsibility: encapsulate health arithmetic and invariants.
   
@@ -276,7 +276,7 @@ This section provides the system's principal classes, their responsibilities, sa
   
   Key methods: `take_damage(amount)`, `heal(amount)`, `is_dead()`, `get_current_health()`.
 
-- `AttackHandler` (Abstract Base) / `GeneralAttackHandlerImpl` (Concrete Implementation), `EnemyAttackHandler`, `PlayerAttackHandler`
+- `AttackHandler` (Interface) / `GeneralAttackHandlerImpl` (Concrete Implementation), `EnemyAttackHandler`, `PlayerAttackHandler`
   
   Responsibility: fire-rate/cooldown logic and projectile creation.
   
@@ -284,7 +284,7 @@ This section provides the system's principal classes, their responsibilities, sa
   
   Key methods: `try_attack()`, `update(dt)`, `set_player_position(y)`.
 
-- `World` (Abstract Base) / `WorldImpl` (Concrete Implementation)
+- `World` (Interface) / `WorldImpl` (Concrete Implementation)
   
   Responsibility: aggregate root for in-game state and entity lifecycle.
   
@@ -294,7 +294,7 @@ This section provides the system's principal classes, their responsibilities, sa
 
 **Application / presentation support**
 
-- `GameController` (abstract) / `GameControllerImpl`
+- `GameController` (Interface) / `GameControllerImpl`
 
   Responsibility: game loop orchestration and coordination among layers.
 
@@ -314,7 +314,7 @@ This section provides the system's principal classes, their responsibilities, sa
 
   Key methods: `play_sound_effect(id)`, `play_music(track)`.
 
-- `SpriteManager` (abstract) / `AbstractSpriteManager` with specializations
+- `SpriteManager` (Interface) / `AbstractSpriteManager` with specializations
 
   Responsibility: sprite/animation loading and draw calls for entity families.
 
@@ -413,6 +413,10 @@ The system employs several established interaction patterns to manage communicat
 
 - Observer Pattern: This pattern is used to notify observers (e.g., the View) of state changes in the subject (Model). A `GameController` detects an entity's state change, and the `GameView` receives an update notification to render the new visual state.
 
+- Template Pattern: Used to define the skeleton of an algorithm in the superclass, still letting subclasses override specific steps of the algorithm without changing its overall structure; this allows adherence to the DRY principle. This has been used for the Entity hierarchy in the Model (`Entity → EntityImpl → (CharacterImpl -> EnemyImpl, PlayerImpl), (ItemImpl -> PowerUpImpl, ProjectileImpl)`) and the Sprite Manager adjacent classes in the View (`SpriteManager → AbstractSpriteManager → DefaultSpriteManager, SpriteManagerEnemy, SpriteManagerPlayer, SpriteManagerPowerUp, SpriteManagerProjectile`).
+
+
+
 - Factory Pattern: Used to create new entity instances without exposing the creation logic to the rest of the application. For example, the GameController requests new entities from a `ProjectileFactory`, which then creates and returns them to the World. `EnemyFactory`, `ProjectileFactory`, `PowerUpFactory` are invoked by the controller or attack handlers to mint domain objects.
 
 - Command Pattern: This pattern translates user actions into command objects that are executed by a handler. An InputHandler captures a user action, which is then processed by the GameController to create a command for a Player to execute.
@@ -467,9 +471,9 @@ The `InputHandler` captures and translates user input into game actions. The `Sp
 
 State updates are managed through a clear hierarchy of responsibilities.
 
-- Primary State Managers: The GameController and World are the main state coordinators. The `GameController` triggers updates every frame (60 FPS) and manages game flow. The World handles the state of all entities, their interactions, and their lifecycles. Individual entities like the Player and Enemy are responsible for updating their own specific states in response to events or continuous updates.
+- Primary State Managers: The GameController and World are the main state coordinators. The `GameController` triggers updates every 60th of a second in regards to the Model and triggers View level updates every frame considering the selected FPS value in the Menu, and manages game flow. The World handles the state of all entities, their interactions, and their lifecycles. Individual entities like the Player and Enemy are responsible for updating their own specific states in response to events or continuous updates.
 
-- Secondary State Managers: Specialized components such as the `PowerUpHandler`, `ScoreHandler`, and `HealthHandler` manage specific, localized state changes. The `PowerUpHandler` applies temporary effects, while the `ScoreHandler` and `HealthHandler` manage score and health values, respectively, in response to events like enemy destruction or damage.
+- Secondary State Managers: Specialized components such as the `PowerUpHandler`, `ScoreHandler`, and `HealthHandler` manage specific, localised state changes. The `PowerUpHandler` applies temporary effects, while the `ScoreHandler` and `HealthHandler` manage score and health values, respectively, in response to events like enemy destruction or damage.
 
 ### State Transition Diagrams
 
@@ -521,7 +525,7 @@ The game requires the storage of high scores for its scoreboard, game configurat
   Player2,1200,Hard,2024-01-15
   ```
 
-The decision to use a file-based approach instead of a formal database was driven by the need for simplicity, portability, and low overhead, which is appropriate for a small, single-player game. This approach avoids the complexity and cost of managing an external database. Runtime game state, such as entity positions and health, is not stored and is managed in-memory, resetting with each game session.
+The decision to use a file-based approach instead of a formal database was driven by the need for simplicity, portability, and low overhead, which is appropriate for a small, offline video-game. This approach avoids the complexity and cost of managing an external database. Runtime game state, such as entity positions and health, is not stored and is managed in-memory, resetting with each game session.
 
 **Alternative Storage Approaches (Not Used)**
 
