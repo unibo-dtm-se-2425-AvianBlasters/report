@@ -6,21 +6,7 @@ nav_order: 4
 
 # Design
 
-This chapter explains the strategies used to meet the requirements identified in the analysis. 
-
-Ideally, the design should be the same, regardless of the technological choices made during the implementation phase.
-
-> You can re-order the sections as you prefer, but all the sections must be present in the end
-
 ## Architecture 
-
-- Which architectural style (e.g. layered, object-based, event-based, shared dataspace)? Why? Why not the others?
-- Provide details about the actual architecture (e.g. N-tier, hexagonal, etc.) you are going to adopt. Motivate your choice.
-- Provide a high-level overview of the architecture, possibly with a diagram
-- Describe the responsibilities of each architectural component
-
-> UML Components diagrams are welcome here
-
 
 ### Architectural Style
 
@@ -58,16 +44,6 @@ The architecture is based on a 3-tier model (Presentation, Business Logic, and D
 
 ## Infrastructure (mostly applies to distributed systems)
 
-- Are there **infrastructural components** that need to be introduced? Which and **how many** of each?
-    - e.g. **clients**, **servers**, **load balancers**, **caches**, **databases**, **message brokers**, **queues**, **workers**, **proxies**, **firewalls**, **CDNs**, etc.
-- How do components **distribute** over the network? **Where** are they located?
-    - e.g. do servers / brokers / databases / etc. sit on the same machine? on the same network? on the same datacenter? on the same continent?
-- How do components **find** each other?
-    - How to **name** components?
-    - e.g. **DNS**, **service discovery**, **load balancing**, etc.
-
-> UML deployment diagrams are welcome here
-
 ### Infrastructural Components
 
 Avian Blasters is a standalone, single-player desktop application that runs entirely on the user's machine in a single Python process. There are no network protocols or external services involved; persistent data is limited to the local scoreboard file. 
@@ -101,14 +77,7 @@ Standard Python module and class naming conventions are used.
 
 ### Domain driven design (DDD) modelling
 
-- Which are the bounded contexts of your domain? 
-- Which are domain concepts (entities, value objects, aggregates, etc.) for each context?
-- Are there repositories, services, or factories for each/any domain concept?
-- What are the relavant domain events in each context?
-
-> Context map diagrams are welcome here
-
-#### **Bounded Contexts**
+**Bounded Contexts**
 
 We partition the domain into three bounded contexts:
 
@@ -118,7 +87,7 @@ We partition the domain into three bounded contexts:
 
 **3. Persistence/Scoring Context (Generic Subdomain)** : durable high-scores and related queries.
 
-#### **Context relationships (high level):**
+**Context relationships (high level):**
 
 - Gameplay → Presentation: Gameplay publishes domain events that the Presentation consumes to render the current state.
 
@@ -126,7 +95,7 @@ We partition the domain into three bounded contexts:
 
 - Presentation → Gameplay: User input is translated into commands directed at Gameplay.
 
-#### **Domain Concepts per Context**
+**Domain Concepts per Context**
 
 **1. Gameplay Context (Core Domain)**
 
@@ -134,7 +103,6 @@ We partition the domain into three bounded contexts:
 
 - World (aggregate root): authoritative state and lifecycle of in-world objects. 
 Invariants: exactly one Player; entities must be registered through the world; collisions are resolved at most once per tick; projectiles have owners and TTL.
-
 
 **Entities (inside World)**
 
@@ -223,7 +191,7 @@ It transform domain state/events into frames, HUD, and feedback without altering
 - ScoreAdded: When a new high score is recorded.
 - ScoreboardLoaded:  When scores are retrieved from storage.
 
-#### **Context Map**
+**Context Map**
 
 **Upstream/Downstream and Translation Patterns**
 
@@ -236,18 +204,11 @@ It transform domain state/events into frames, HUD, and feedback without altering
 
 ### Object-oriented modelling
 
-- What are the main data types (e.g. classes) of the system?
-- What are the main attributes and methods of each data type?
-- How do data types relate to each other?
-
-> UML class diagrams are welcome here
-
-
 This section provides the system's principal classes, their responsibilities, salient attributes/methods, and the relationships among them. The modelling aligns with the layered (Presentation/ Business Logic/ Data) + MVC architecture descibed in the previous sections. 
 
-#### Main data types (classes)
+**Main data types (classes)**
 
-#### **Core domain (gameplay)**
+**Core domain (gameplay)**
 
 - Entity (Abstract Base) / EntityImpl (Concrete Implementation)
   Responsibility: minimal game object contract (identity, spatial footprint, lifecycle).
@@ -300,7 +261,7 @@ This section provides the system's principal classes, their responsibilities, sa
   Key attributes: _entities.
   Key methods: get_all_entities(), add_entities(*entities), get_players(), get_enemies(), remove_entity(entity).
 
-#### **Application / presentation support**
+**Application / presentation support**
 
 - GameController (abstract) / GameControllerImpl
   Responsibility: game loop orchestration and coordination among layers.
@@ -322,13 +283,13 @@ This section provides the system's principal classes, their responsibilities, sa
   Responsibility: HUD and overlay rendering (score, health, game-over).
   Key methods: render_score(), render_health(), render_game_over().
 
-#### **Persistence**
+**Persistence**
 
 - Scoreboard (→ ScoreboardImpl)
   Responsibility: durable high-score collection.
   Key methods: add_score(player, value), get_scores(); file-backed (assets/scoreboard.txt).
 
-#### Relationships among data types
+**Relationships among data types**
 
 **- Inheritance**
 
@@ -369,23 +330,17 @@ This section provides the system's principal classes, their responsibilities, sa
 
 ## Interaction
 
-- How do components *communicate*? *When*? *What*?
-
-- Which **interaction patterns** do they enact?
-
-> UML sequence diagrams are welcome here
-
 This section explains how components communicate, when, and what they exchange, and the interaction patterns they enact.
 
 ### Component Interaction
 
 This section details the nature of communication and data exchange among the system's components, which is critical for the game's operational integrity.
 
-#### **Communication Modality**
+**Communication Modality**
 
 Components interact via synchronous Python method calls and object references within a single process. The View reads the Model’s state in a read-only fashion; the Controller orchestrates updates and coordinates subsystems (rendering, audio, persistence). No network messages are used.
 
-#### **Timing and Frequency of Interaction**
+**Timing and Frequency of Interaction**
 
 Component interactions are triggered by specific events and occur at predetermined intervals to maintain the real-time nature of the game:
 
@@ -395,7 +350,7 @@ Component interactions are triggered by specific events and occur at predetermin
 
 - Lifecycle Events: Communication is also vital during the application's initialization and shutdown phases to facilitate proper setup and teardown of components.
 
-#### **Exchanged Data**
+**Exchanged Data**
 
 The data exchanged between components can be categorized into several distinct types, reflecting their purpose and origin:
 
@@ -406,4 +361,176 @@ The data exchanged between components can be categorized into several distinct t
 - Presentation Data: Information specifically formatted for rendering, such as entity lists, derived view information, and values for the Head-Up Display (HUD).
 
 - System Cues: This category includes audio cues (e.g., for firing or impact sounds) and persistence data related to score submissions and queries to the local scoreboard.
+
+### Interaction Patterns
+
+The system employs several established interaction patterns to manage communication flow and maintain a clean separation of concerns.
+
+- Model-View-Controller (MVC): This core pattern decouples rendering (View) from game state (Model) and input handling (Controller). The flow is User InputHandlerImpl → GameControllerImpl → WorldImpl → GameViewImpl → Display.
+
+- Observer Pattern: This pattern is used to notify observers (e.g., the View) of state changes in the subject (Model). A GameController detects an entity's state change, and the GameView receives an update notification to render the new visual state.
+
+- Factory Pattern: Used to create new entity instances without exposing the creation logic to the rest of the application. For example, the GameController requests new entities from a ProjectileFactory, which then creates and returns them to the World. EnemyFactory, ProjectileFactory, PowerUpFactory are invoked by the controller or attack handlers to mint domain objects.
+
+- Command Pattern: This pattern translates user actions into command objects that are executed by a handler. An InputHandler captures a user action, which is then processed by the GameController to create a command for a Player to execute.
+
+### Detailed Interaction Sequences
+
+- Game Loop Interaction: The main loop orchestrates continuous updates. GameController.run() iteratively calls InputHandler.handle_events(), GameController.update_game_state(), and GameView.render_world() at 60 FPS.
+
+![Main game-loop tick](../../pictures/MainGameloop.png)
+
+- Player Shooting: A user's key press is captured by the InputHandler, processed by the GameController, and results in a Player.shoot() method call. This creates a projectile instance via a factory, which is then added to the World and rendered by the GameView.
+
+![Player Shooting](../../pictures/Playershooting.png)
+
+- Enemy hit → damage, death, score update: A projectile's movement triggers a collision check against an enemy. Upon collision, the Enemy.take_damage() method is called, and if the enemy is destroyed (is_dead()), it is removed from the World, and the player's score is updated.
+
+![Enemy hit](../../pictures/Enemyhit.png)
+
+![Power-up collection (apply effect, HUD/audio feedback)](../../pictures/PowerSeq.png)
+
+## Behaviour
+
+This section describes how each component behaves in response to inputs and events (stateful vs. stateless), and which components update system state, when, and how.
+
+### Individual Component Behaviour
+
+The system's components are designed with distinct roles, categorized by their statefulness.
+
+**Stateful Components**
+
+These components retain information over time and manage a defined internal state. 
+
+- GameControllerImpl: owns the game loop and flow flags (running, paused) and references to the World, Player, View, and I/O subsystems. Responds to normalized actions (move, shoot, pause/quit); advances simulation each frame; triggers rendering/audio; transitions between Running ⇄ Paused and into Game Over. 
+
+- WorldImpl: authoritative container of runtime entities. Adds/removes entities, advances them each tick, resolves collisions, and applies results (damage, destruction, spawns).
+
+- PlayerImpl: maintains position, health, score, status/power-up timers. Moves within limits; fires via attack handler; applies power-ups; enters Invulnerable briefly after damage.
+
+- Enemy (Bird/Bat): keeps movement/attack state and cooldowns.
+Bird follows formation sweeps and periodic descent.
+Bat switches from Descending to Bird-like/Homing based on proximity to the player.
+
+- Handlers: HealthHandler tracks (current,max) and death; AttackHandler/cooldowns decide when a projectile is created; power-up/status handlers manage effect durations.
+
+**Stateless Components**
+
+These components perform specific actions without retaining any data between calls. 
+
+The InputHandler captures and translates user input into game actions. The SpriteManager provides sprite data on demand for rendering, and the SoundManager triggers audio effects.
+
+### State Update Responsibilities
+
+State updates are managed through a clear hierarchy of responsibilities.
+
+- Primary State Managers: The GameController and World are the main state coordinators. The GameController triggers updates every frame (60 FPS) and manages game flow. The World handles the state of all entities, their interactions, and their lifecycles. Individual entities like the Player and Enemy are responsible for updating their own specific states in response to events or continuous updates.
+
+- Secondary State Managers: Specialized components such as the PowerUpHandler, ScoreHandler, and HealthHandler manage specific, localized state changes. The PowerUpHandler applies temporary effects, while the ScoreHandler and HealthHandler manage score and health values, respectively, in response to events like enemy destruction or damage.
+
+### State Transition Diagrams
+
+**One frame of the game loop**
+
+![Controller-Orchestrated](../../pictures/FrameActivity.png)
+
+
+**Game Controller State Machine**
+
+![Game State Machine](../../pictures/GameStateMach.png)
+
+**Player State Machine**
+
+![Player State Machine](../../pictures/Playerstate.png)
+
+**Bat Movement State Machine**
+
+![Bat Movement State Machine](../../pictures/BatMov.png)
+
+**Enemy Lifecycle State Machine**
+
+![Enemy Lifecycle State Machine](../../pictures/EnemyLifecycle.png)
+
+**Overall Game State Machine**
+
+![Game State Machine](../../pictures/OverallGameState.png)
+
+### State Persistence and Synchronization
+
+State is handled entirely within the local environment, eliminating the complexity of a distributed system.
+
+- State Persistence: The majority of the game's state (entity positions, health, score) is in-memory and exists only during runtime. The only persistent data is the scoreboard, which is stored in a local text file (assets/scoreboard.txt).
+
+- State Synchronization: As a single-player, single-process application, there is no distributed state. This design choice removes the need for state synchronization, preventing issues related to consistency, race conditions, or network latency. All state consistency is handled internally by the responsible components.
+
+## Data-related aspects (in case persistent storage is needed)
+
+This section describes the system's data management strategy, including what data is stored, how it's persisted, and how it's shared between components.
+
+**Persistent Data and Storage Strategy**
+
+The game requires the storage of high scores for its scoreboard, game configuration for settings, and asset metadata for resources. These are stored locally, with the scoreboard being a simple text file (assets/scoreboard.txt). 
+
+**Storage Type**: **Text File (Key-Value Pairs)**
+- **Format**: Simple text file with structured data
+- **Location**: `assets/scoreboard.txt`
+- **Structure**: 
+  ```
+  PlayerName,Score,Difficulty,Timestamp
+  Player1,1500,Easy,2024-01-15
+  Player2,1200,Hard,2024-01-15
+  ```
+
+The decision to use a file-based approach instead of a formal database was driven by the need for simplicity, portability, and low overhead, which is appropriate for a small, single-player game. This approach avoids the complexity and cost of managing an external database. Runtime game state, such as entity positions and health, is not stored and is managed in-memory, resetting with each game session.
+
+**Alternative Storage Approaches (Not Used)**
+
+- Relational Database (SQLite): It was not used as it is overkill for simple scoreboard data but used well for Complex user management, multiple game modes, analytics.
+
+- Document Database (JSON): We did not use it as it is more complex than needed for current requirements
+but it can be used in complex game state, user profiles, achievements.
+
+- Key-Value Store (Redis): It requires external service, adds complexity. Best used in real-time multiplayer, session management
+
+**Data Queries**
+
+Data queries are handled by the ScoreboardImpl component, which performs file-based read operations to load existing scores and write operations to save new ones. These queries are made at specific moments, such as at game initialization and game over, and do not require concurrent access due to the single-player nature of the application.
+
+**Query Patterns**
+
+Queries:
+  - `get_scores()` → Read all scores from file
+  - `add_score()` → Append new score to file
+
+Read Operations:
+```python
+def get_scores(self):
+    # Read entire file, parse scores
+    with open('assets/scoreboard.txt', 'r') as f:
+        return parse_scores(f.read())
+```
+
+Write Operations:
+```python
+def add_score(self, score_data):
+    # Append new score to file
+    with open('assets/scoreboard.txt', 'a') as f:
+        f.write(format_score(score_data))
+```
+
+**Data Sharing**
+
+Data is shared between components through established patterns to maintain consistency. Key information like game state, configuration, and asset data is centralized and managed by specific components (World, Manager classes) and then accessed by other components via direct object references. This ensures a consistent view of the data without the need for complex synchronization mechanisms.
+
+**Persistence interactions**
+
+- Save score at Game Over
+
+![Save Score](../../pictures/savescore.png)
+
+- Load and display top scores (MenuMenu → High Scores)
+
+![Load and display score](../../pictures/loadscore.png)
+
+
 
