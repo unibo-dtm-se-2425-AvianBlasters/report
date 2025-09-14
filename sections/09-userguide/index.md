@@ -230,8 +230,34 @@ When an Avian is defeated a Power-Up might drop. It can be one of the following:
 
 ## Credits
 
-...
+### Software Project Direction, Design and Development
 
-During the course of development (and the game proper) no Avian or Earthling was (or gets) hurt. 
+- [Mariam Baloch](mailto:mariam.baloch@studio.unibo.it)
 
-On the other hand, the cars have indeed seen stainless days.
+- [Beatrice Micolucci](mailto:beatrice.micolucci@studio.unibo.it)
+
+- [Filippo Velli](mailto:filippo.velli@studio.unibo.it)
+
+### Libraries and Templates used
+
+- [`build`](https://pypi.org/project/build/)
+
+- [`twine`](https://pypi.org/project/twine/)
+
+- [`scikit-learn`](https://pypi.org/project/scikit-learn/)
+
+- [`pandas`](https://pypi.org/project/pandas/)
+
+- [`pygame`](https://pypi.org/project/pygame/)
+
+- [`pygame_menu`](https://pypi.org/project/pygame-menu/)
+
+- [`template-python-project`](https://github.com/unibo-dtm-se/template-python-project)
+
+- [`template-project-work`](https://github.com/unibo-dtm-se/template-project-work)
+
+### Disclaimer
+
+During the course of development (and the game proper) no Avian or Earthling was (or gets) hurt... 
+
+... on the other hand, the cars have indeed seen stainless days.
