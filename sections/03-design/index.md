@@ -42,11 +42,11 @@ The architecture is based on a 3-tier model (Presentation, Business Logic, and D
 
 > See Modelling → Object-oriented modelling for class details; see Modelling → DDD for bounded contexts and domain events.
 
-## Infrastructure (mostly applies to distributed systems)
+## Infrastructure
 
 ### Infrastructural Components
 
-Avian Blasters is a standalone, single-player desktop application that runs entirely on the user's machine in a single Python process. There are no network protocols or external services involved; persistent data is limited to the local scoreboard file. 
+Avian Blasters is a standalone, offline desktop application that runs entirely on the user's machine in a single Python process. There are no network protocols or external services involved; persistent data is limited to the local scoreboard file. 
 
 ### Component Distribution (Network and Placement)
 
@@ -357,20 +357,6 @@ This section provides the system's principal classes, their responsibilities, sa
 
 ![Class Diagram](../../pictures/ClassDiagram.png)
 
-### In case of a distributed system
-
-- How do the domain concepts map to the architectural or infrastuctural components?
-    + i.e. which architectural/component is responsible for which domain concept?
-    + are there data types which are required onto multiple components? (e.g. messages being exchanged between components)
-
-- What are the domain concepts or data types which represent the state of the distributed system?
-    + e.g. state of a video game on central server, while inputs/representations on clients
-    + e.g. where to store messages in an instant-messaging app? for how long?
-
-- Are there domain concepts or data types which represent messages being exchanged between components?
-    + e.g. messages between clients and servers, messages between servers, messages between clients
-
-
 ## Interaction
 
 This section explains how components communicate, when, and what they exchange, and the interaction patterns they enact.
@@ -414,8 +400,6 @@ The system employs several established interaction patterns to manage communicat
 - Observer Pattern: This pattern is used to notify observers (e.g., the View) of state changes in the subject (Model). A `GameController` detects an entity's state change, and the `GameView` receives an update notification to render the new visual state.
 
 - Template Pattern: Used to define the skeleton of an algorithm in the superclass, still letting subclasses override specific steps of the algorithm without changing its overall structure; this allows adherence to the DRY principle. This has been used for the Entity hierarchy in the Model (`Entity → EntityImpl → (CharacterImpl -> EnemyImpl, PlayerImpl), (ItemImpl -> PowerUpImpl, ProjectileImpl)`) and the Sprite Manager adjacent classes in the View (`SpriteManager → AbstractSpriteManager → DefaultSpriteManager, SpriteManagerEnemy, SpriteManagerPlayer, SpriteManagerPowerUp, SpriteManagerProjectile`).
-
-
 
 - Factory Pattern: Used to create new entity instances without exposing the creation logic to the rest of the application. For example, the GameController requests new entities from a `ProjectileFactory`, which then creates and returns them to the World. `EnemyFactory`, `ProjectileFactory`, `PowerUpFactory` are invoked by the controller or attack handlers to mint domain objects.
 
