@@ -14,5 +14,8 @@ In the game the player controls a car that can move left and right along the bot
 no health points left or when an enemy is able to touch them.
 
 From a use case perspective, users are meant to interact with the software offline on their device when they want to have to play for a few bursts and give their routine a short and fun break.
-The system does not need to store user's data.
-In the case of this software project, there is only one kind of role that a user might play, namely the one of the player.
+
+The system stores the scores locally in the user's file system.
+
+In the case of this software project, there is only one kind of role that a user might play, namely the one of the player. 
+
