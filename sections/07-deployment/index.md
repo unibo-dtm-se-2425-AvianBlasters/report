@@ -6,8 +6,6 @@ nav_order: 8
 
 # Deployment
 
-This section explains what operations are needed to make the software work on the users' machine(s)
-
 ## User installation
 
 - Does the user need to install something on their machine(s) to run your software?
@@ -18,6 +16,7 @@ This section explains what operations are needed to make the software work on th
 To install and run Avian Blasters on their machine, the user only needs Python 3.9 or higher and standard management tools (`pip`). No additional configuration or environment variables are required.
 
 The game can be obtained in two ways:
+
 1. **Installation from TestPyPI**
    
    Using the command:
@@ -27,6 +26,7 @@ The game can be obtained in two ways:
     ```
 
     All the necessary dependencies are handled automatically.
+
 2. **Installation from GitHub**
    
    By cloning the repository or downloading the archive from the Release section. The commands are:
@@ -35,7 +35,6 @@ The game can be obtained in two ways:
     git clone https://github.com/unibo-dtm-se-2425-AvianBlasters/artifact.git
     cd artifact
     pip install -r requirements.txt
-
     ```
 After installation, the game can be launched with: `python -m Avian_Blasters`
 
@@ -46,13 +45,6 @@ The user can verify a successful installation if:
 - the game launches correctly with `python -m Avian_Blasters`;
 - the game window responds to inputs and displays graphics without crashes.
 
-    
 ## Server-side installation
 
-- Does your software need to be installed on a server?
-    * If yes, what is it?
-    * If yes, how to install it?
-    * If yes, how to configure it?
-
-- Does your software need to further software to be installed on the server? (e.g. a database, a message broker, etc.)
-    * same questions as above
+No server-side installation is required.
