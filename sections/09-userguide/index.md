@@ -256,6 +256,12 @@ When an Avian is defeated a Power-Up might drop. It can be one of the following:
 
 - [`template-project-work`](https://github.com/unibo-dtm-se/template-project-work)
 
+### Assets
+
+- Sprites: [Filippo Velli](mailto:filippo.velli@studio.unibo.it)
+
+- Sounds & music from https://pixabay.com/
+
 ### Disclaimer
 
 During the course of development (and the game proper) no Avian or Earthling was (or gets) hurt... 
