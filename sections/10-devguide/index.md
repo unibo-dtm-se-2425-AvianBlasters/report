@@ -20,7 +20,7 @@ For internal team communication, a group chat is typically used.
 ## Internal Conventions
 Naming conventions:
 
-- Classes: `CamelCase`
+- Classes: `PascalCase`
 - Variables and functions: `snake_case`
 - Constants: `UPPERCASE`
 
