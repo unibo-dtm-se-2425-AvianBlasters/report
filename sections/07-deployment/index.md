@@ -36,8 +36,7 @@ The game can be obtained in two ways:
     cd artifact
     pip install -r requirements.txt
     ```
-After installation, the game can be launched with: `python -m Avian_Blasters`
-
+After installation, the game can be launched with: `python -m Avian_Blasters`.
 This opens a fixed-size game window with keyboard-controlled inputs.
 
 The user can verify a successful installation if:
