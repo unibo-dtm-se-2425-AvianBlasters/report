@@ -54,4 +54,6 @@ nav_order: 3
     - **NF4**: if the concept of difficulty is implemented, it will be featured
     - **NF5**: if achieved, this will likely done through the use of free-to-use resources
 
-> You may consider adding a use-case diagram here (via PlantUML) to better visualize the requirements and their relationships
+## Use case diagram:
+
+![Use case UML diagram](../../pictures/Use_Case_UML_diagram.png)
