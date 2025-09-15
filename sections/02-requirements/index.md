@@ -9,8 +9,8 @@ nav_order: 3
 ## User stories
 
 - As a gamer, the software should offer a certain level of challenge and/or variety, so that it feels rewarding to play.
-- As a general user, the software must be simple to understand and easy to control, so that it is as pick-up and play as possible.
-- ...
+- As a gamer, the software must be simple to understand and easy to control, so that it is as pick-up and play as possible.
+- As a gamer, the software must be simple to set up.
 
 ## Requirements analysis
 
