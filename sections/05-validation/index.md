@@ -20,7 +20,7 @@ We chose the `unittest` framework primarily for its simplicity and because it is
 
 > General recommendation: when discussing the tests below, please track to which requirement each test is related to.
 
-For automated testing, a total of 86 tests were implemented, organized into separate files corresponding to each component. These tests validate the game's functionality and requirements, and are categorized as either unit tests or integration tests.
+For automated testing, a total of 87 tests were implemented, organized into separate files corresponding to each component. These tests validate the game's functionality and requirements, and are categorized as either unit tests or integration tests.
 
 - ### test_entity.py
 
@@ -38,7 +38,7 @@ For automated testing, a total of 86 tests were implemented, organized into sepa
 
   | Tests           | Requirements | Tested features    | Type  |
   |-----------------|------------  |--------------------|-------|
-  | 19               | F1, F3, F4, F5           | Correct initialisation of the Player, PlayerStatusHandler and Score; Player movement and its edge cases; Score variation; damage and end game Conditions; attack capabilities; changes of the Player's status (normal, invulnerable, slowed) |  Unit / Integration |
+  | 20               | F1, F3, F4, F5           | Correct initialisation of the Player, PlayerStatusHandler and Score; Player movement and its edge cases; Score variation; damage and end game Conditions; attack capabilities; changes of the Player's status (normal, invulnerable, slowed) |  Unit / Integration |
 
 - ### test_enemy.py
 
@@ -98,8 +98,6 @@ To isolate components and simulate dependent behaviors during integration testin
 - **Projectile mock**: used to test power-ups that interact with existing projectiles.
 - **Dummy power-up**: applied to test general logic without applying real effects.
 - **Timer mock (patch)**: used for timed power-ups to simulate the passage of time and test the expiration of temporary effects without actual delays.
-
-
 
 ### System testing
 
