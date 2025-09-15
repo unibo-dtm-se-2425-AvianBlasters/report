@@ -15,7 +15,7 @@ nav_order: 1
 
 ## Abstract
 
-"Avian Blasters" (or “Avian Blasters: The Avians Strike Back”) is a fixed-screen arcade shoot ’em up inspired by games like Space Invaders and Galaga created for a university Software Engineering Project.
+"Avian Blasters" (or “Avian Blasters: The Avians Strike Back”) is a fixed-screen arcade shoot ’em up inspired by games like Space Invaders and Galaga, developed in Python, created for a university Software Engineering Project.
 
 ## Disclaimer (if needed)
 
