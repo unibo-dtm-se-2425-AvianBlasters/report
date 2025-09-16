@@ -19,8 +19,6 @@ Overall, I believe this project has been a significant opportunity for both lear
 At the same time, this experience helped me identify some weaknesses that I plan to work on in the future to further improve myself.
 Beyond the technical side, I also see this project as a valuable opportunity to better understand how to collaborate within a structured development team, following all the stages of a project’s lifecycle, from requirements analysis to release.
 
-Note: Throughout the project, AI tools were occasionally used as a support resource, particularly for error analysis and to receive suggestions on best practices.
-
 ## Mariam Baloch
 
 At the beginning of the project I contributed to the initial design discussions and helped bootstrap the game by setting up the core Pygame interface and rendering loop. As responsibilities were divided, I chose to focus on the enemy subsystem, covering the abstractions and concrete behaviors for Bird and Bat enemies, their movement patterns, collision handling, health, and attack logic. Before coding, I refined the design of these components to stay consistent with the overall layered/MVC architecture and the decisions shared within the team.

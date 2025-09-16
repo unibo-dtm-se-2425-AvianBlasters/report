@@ -19,8 +19,6 @@ nav_order: 1
 
 ## Disclaimer (if needed)
 
-During the preparation of this work, the author(s) used [NAME TOOL / SERVICE] to [REASON].
-
-After using this tool/service, the author(s) reviewed and edited the content as needed
-and take(s) full responsibility for the content of the final report/artifact.
+Throughout the project, ChatGPT was occasionally used as a support resource, particularly to analyze errors and receive suggestions on best practices to follow (for example, to ask which design options were more optimal). All content generated or suggested by the tool was reviewed, adapted, and integrated by the author, who takes full responsibility for the final report/artifact.
+(This disclaimer applies specifically to the design and implementation of the game items and to the author who handled them)
 
