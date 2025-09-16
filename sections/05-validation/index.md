@@ -8,17 +8,11 @@ nav_order: 6
 
 ## Testing approach
 
-- Describe what approach you followed for testing your software
-- If you followed TDD, describe it here
-- Also mention which testing framework you used (e.g. `unittest` or `pytest`) and why
-
 We adopted a TDD approach, initially writing basic tests to guide the implementation before developing the actual code. However, in some cases, tests were written immediately after implementation to validate newly introduced features.
 
 We chose the `unittest` framework primarily for its simplicity and because it is part of the Python standard library, making it readily available without requiring external dependencies.
 
 ## Testing (automated)
-
-> General recommendation: when discussing the tests below, please track to which requirement each test is related to.
 
 For automated testing, a total of 87 tests were implemented, organized into separate files corresponding to each component. These tests validate the game's functionality and requirements, and are categorized as either unit tests or integration tests.
 
@@ -38,7 +32,7 @@ For automated testing, a total of 87 tests were implemented, organized into sepa
 
   | Tests           | Requirements | Tested features    | Type  |
   |-----------------|------------  |--------------------|-------|
-  | 20               | F1, F3, F4, F5           | Correct initialisation of the Player, PlayerStatusHandler and Score; Player movement and its edge cases; Score variation; damage and end game Conditions; attack capabilities; changes of the Player's status (normal, invulnerable, slowed) |  Unit / Integration |
+  | 20              | F1, F3, F4, F5           | Correct initialisation of the Player, PlayerStatusHandler and Score; Player movement and its edge cases; Score variation; damage and end game Conditions; attack capabilities; changes of the Player's status (normal, invulnerable, slowed) |  Unit / Integration |
 
 - ### test_enemy.py
 
@@ -66,29 +60,24 @@ For automated testing, a total of 87 tests were implemented, organized into sepa
 
 ### Unit testing
 
-- Describe the unit tests you developed, and their rationale
-- Report success rate and test coverage here
-
 As previously mentioned, a dedicated test file was created for each component to verify its functionality and methods.
 This approach allowed each class and component to be tested in isolation, ensuring correct behavior and reliable operation.
 All methods and properties were thoroughly validated, including edge cases involving incorrect inputs and invalid parameters.
+
 The overall test success rate was 100%.
 
-
 ### Integration testing
-
-- Describe couples of components that you tested together, and the corresponding test rationale/plan
-
-- Report success rate and test coverage here
-
-- If you used [test doubles](https://en.wikipedia.org/wiki/Test_double), describe her which type of double you used, and why
 
 Integration testing was employed to verify the behavior and interactions between various components, including:
 
 - **Power-up / Player**: testing the player's ability to collect, apply, and potentially remove power-up effects.
 - **Power-up / Projectile**: verifying how power-ups influence the types of projectiles fired by the player.
 - **Projectile / Player**: validating the player's firing behavior via the attack handler, based on the configured number and type of projectiles.
-- (other cases)
+- **Entity / Area**: testing the movement capabilities and interactions of Entity objects using Area.
+- **Player / Entity**: testing the player's interactions with other entities. 
+- **Player / PlayerStatus**: testing handling of status changes during the normal functionality of player.
+- **PlayerStatus / CooldownHandler**: testing the status cooldowns.
+- **World / Entity**: verifying the correct addition of new elements bieng all of the Entity class (or one of its subclasses).
 
 These tests confirmed that the components interacted as expected. The overall test success rate was 100%.
 
@@ -112,12 +101,12 @@ To isolate components and simulate dependent behaviors during integration testin
 
 ## Acceptance tests (manual)
 
-- If you did any manual testing, describe it here
-- Report the test rationale/plan so that another person can repeat the tests
-    + better would be for acceptance tests to match the acceptance criteria of the requirements
-- Report success rate here
+All functional and non-functional requirements have been successfully verified through manual testing of the game. Manual testing was done by:
 
-All functional and non-functional requirements have been successfully verified through manual testing of the game. The following acceptance criteria were specifically addressed:
+- verifying the setup and startup of the application through the commands specified in the Deployment section
+- manually trying the software, to test variables setup (changing music on/off, different fps levels and/or difficulty, name being set-up or not) originating from the menu and overall gameplay, as described in the User Guide
+
+The following acceptance criteria were specifically addressed:
 
 - **F1**: The player can move the car left and right and shoot upward.
 - **F2**: The game features at least two enemy types—birds and bats—with distinct attack modes and movement patterns.
@@ -130,3 +119,4 @@ All functional and non-functional requirements have been successfully verified t
 - **NF4**: Game difficulty can be selected from the main menu.
 - **NF5**: All sounds and music are created using free or public domain resources.
 
+The overall test success rate for acceptance tests was 100%.
