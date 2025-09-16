@@ -27,6 +27,8 @@ The game can be obtained in two ways:
 
     All the necessary dependencies are handled automatically.
 
+    *Note: Currently, the installation process via TestPyPI does not work with all Python versions due to a required package (meson-python) that is not updated on TestPyPI. A future official release on PyPI is planned, which will allow proper installation on all supported Python versions.*
+
 2. **Installation from GitHub**
    
    By cloning the repository or downloading the archive from the Release section. The commands are:
