@@ -172,11 +172,11 @@ It transform domain state/events into frames, HUD, and feedback without altering
 
 **Entities**
 
-- ScoreEntry: (PlayerName, points, difficulty, timestamp).
+- ScoreEntry: (PlayerName, points, difficulty).
 
 **Value Objects**
 
--ScorePoints, PlayerName, Difficulty, RecordedAt.
+-ScorePoints, PlayerName, Difficulty.
 
 **Services**
 
@@ -216,7 +216,7 @@ This section provides the system's principal classes, their responsibilities, sa
   
   Key attributes: `_area` , `_type`, `_active`
   
-  Key methods: `get_area()`, `get_type ()`, `move(dx,dy,width,height)`, `destroy()`, `is_active()`
+  Key methods: `get_area()`, `get_type()`, `move(dx,dy,width,height)`
 
 - `Character` (Interface) / `CharacterImpl` (Concrete Implementation)
   
@@ -224,7 +224,7 @@ This section provides the system's principal classes, their responsibilities, sa
   
   Key attributes: `_health_handler`, `_attack_handler`,`_speed`,`_position` ,`_area`
   
-  Key methods: `get_health()`, `take_damag(amount)`, `is_dead()`, `shoot()`,`move()`
+  Key methods: `get_health()`, `take_damage(amount)`, `is_dead()`, `shoot()`,`move()`
 
 - `Player` (Interface) / `PlayerImpl` (Concrete Implementation)
   
@@ -232,7 +232,7 @@ This section provides the system's principal classes, their responsibilities, sa
   
   Key attributes: `_score` , `_status_handler` , `_power_up_handler` , `_limit_left` , `_limit_right`
   
-  Key methods: `move(direction)`, `shoot()`,`is_touched(other)`,`get_score()`
+  Key methods: `move(x)`, `shoot()`,`is_touched(other)`,`get_score()`
 
 - `Enemy` (Interface) / `EnemyImpl` (Concrete Implementation), Bird, Bat
   
@@ -251,6 +251,8 @@ This section provides the system's principal classes, their responsibilities, sa
 - `Item` (Interface) / `ItemImpl` (Concrete Implementation)
 
   Responsibility: base for non-actor interactables (projectiles, power-ups).
+
+  Key methods: `destroy()`, `is_active()`
 
 - `Projectile` (Interface) / `ProjectileImpl` (Concrete Implementation)
   
@@ -286,11 +288,11 @@ This section provides the system's principal classes, their responsibilities, sa
 
 - `World` (Interface) / `WorldImpl` (Concrete Implementation)
   
-  Responsibility: aggregate root for in-game state and entity lifecycle.
+  Responsibility: aggregate root for in-game state and entity lifecycle and access.
   
   Key attributes: `_entities`.
   
-  Key methods: `get_all_entities()`, `add_entities(*entities)`, `get_players()`, `get_enemies()`, `remove_entity(entity)`.
+  Key methods: `get_all_entities()`, `add_entities(*entities)`, `add/get_players()`, `add/get_enemies()`, `add/get_power_ups()`, `add/get_projectiles()`, `remove_entity(entity)`.
 
 **Application / presentation support**
 
@@ -300,7 +302,7 @@ This section provides the system's principal classes, their responsibilities, sa
 
   Key attributes: `_world, _view`, `_input_handler`,` _player`.
 
-  Key methods: `initialize()`, `run()`, `update_game_state(dt)`, `handle_input()`.
+  Key methods: `initialize()`, `run()`, `update_game_state(dt)`, `handle_input(actions)`.
 
 - `InputHandler (→ InputHandlerImpl)`
 
@@ -312,7 +314,7 @@ This section provides the system's principal classes, their responsibilities, sa
 
   Responsibility: SFX/music playback.
 
-  Key methods: `play_sound_effect(id)`, `play_music(track)`.
+  Key methods: `play_sound_effect(sound_file_path, volume)`, `play_music(music_file_path, loop, volume)`, `stop_music()`
 
 - `SpriteManager` (Interface) / `AbstractSpriteManager` with specializations
 
@@ -465,7 +467,6 @@ State updates are managed through a clear hierarchy of responsibilities.
 
 ![Controller-Orchestrated](../../pictures/FrameActivity.png)
 
-
 **Game Controller State Machine**
 
 ![Game State Machine](../../pictures/GameStateMach.png)
@@ -492,7 +493,7 @@ State is handled entirely within the local environment, eliminating the complexi
 
 - State Persistence: The majority of the game's state (entity positions, health, score) is in-memory and exists only during runtime. The only persistent data is the scoreboard, which is stored in a local text file (`assets/scoreboard.txt`).
 
-- State Synchronization: As a single-player, single-process application, there is no distributed state. This design choice removes the need for state synchronization, preventing issues related to consistency, race conditions, or network latency. All state consistency is handled internally by the responsible components.
+- State Synchronization: As a local, single-process application, there is no distributed state. This design choice removes the need for state synchronization, preventing issues related to consistency, race conditions, or network latency. All state consistency is handled internally by the responsible components.
 
 ## Data-related aspects (in case persistent storage is needed)
 
@@ -504,9 +505,9 @@ The game requires the storage of high scores for its scoreboard, game configurat
 
 **Structure**: 
   ```
-  PlayerName,Score,Difficulty,Timestamp
-  Player1,1500,Easy,2024-01-15
-  Player2,1200,Hard,2024-01-15
+  PlayerName,Score,Difficulty
+  Player1,1500,Easy
+  Player2,1200,Hard
   ```
 
 The decision to use a file-based approach instead of a formal database was driven by the need for simplicity, portability, and low overhead, which is appropriate for a small, offline video-game. This approach avoids the complexity and cost of managing an external database. Runtime game state, such as entity positions and health, is not stored and is managed in-memory, resetting with each game session.
