@@ -8,11 +8,6 @@ nav_order: 8
 
 ## User installation
 
-- Does the user need to install something on their machine(s) to run your software?
-    * If yes, what is it?
-    * If yes, how to install it? (report the commands to run)
-    * If yes, how to configure it? (e.g. creating configuration files, setting environment variables, etc.)
-
 To install and run Avian Blasters on their machine, the user only needs Python 3.9 or higher and standard management tools (`pip`). No additional configuration or environment variables are required.
 
 The game can be obtained in two ways:
