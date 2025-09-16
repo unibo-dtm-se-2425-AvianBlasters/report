@@ -37,7 +37,7 @@ nav_order: 3
     - **Enemy/Avians**: the characters trying to attack and defeat the player
     - **Projectile**: the attacks the players and the enemies can shoot to hit to each other
     - **Power-Up**: the items falling down from certain defeated enemies that when collected by the car allow it to gain new temporary abilities/advantages
-    - **Bird**: the common type of enemy coming down from the top of the screen. Usually them come in groups/enemy waves
+    - **Bird**: the common type of enemy coming down from the top of the screen. They come in groups/enemy waves
     - **Enemy Wave**: group of birds fighting against the player. When a enemy wave is defeated, a new one is generated
     - **Bat**: another type of enemy that tries to compromise the movement abilities of the player with a special type of projectile, known as wave
     - **Sound Wave**: the bat's unique projectile that compromises the player character's movement abilities if the latter comes into contact with it

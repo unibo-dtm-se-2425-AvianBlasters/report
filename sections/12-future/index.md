@@ -12,7 +12,7 @@ Despite this, there a few aspects that could be improved further and/or added in
  
 1) having the screen and game assets scale properly depending on the screen size of the user's device
 
-2) allowing for accessibility features, such as different colourblindness modes, as there is an extensive use of colurs in the game
+2) allowing for accessibility features, such as different colourblindness modes, as there is an extensive use of colours in the game
 
 3) compatibility for devices such as smartphones, with touch controls
 
