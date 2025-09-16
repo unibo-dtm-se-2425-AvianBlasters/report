@@ -6,16 +6,7 @@ nav_order: 13
 
 # Known issues and future work
 
-This section should describe:
-- What is missing
-- What does not work as it should
-- Potential future developments to improve/expand the software
-
-N.B. Be honest, no impact on the final mark.
-
-
-
-Overall, Avian Blasters as a software product meets all the criteria that were set from the very beginning.
+Overall, Avian Blasters, as a software product, meets all the criteria that were set from the very beginning.
 
 Despite this, there a few aspects that could be improved further and/or added in a future release:
  
@@ -32,3 +23,5 @@ Despite this, there a few aspects that could be improved further and/or added in
 6) new power-ups, projectiles and enemy types, including bosses
 
 7) alternate modes of play, such a time attack mode, in which the player must survive for a specific amount of time
+
+8) release on PyPI
