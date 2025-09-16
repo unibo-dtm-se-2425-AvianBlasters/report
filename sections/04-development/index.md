@@ -16,28 +16,13 @@ The project uses Git with a structured workflow, organized into different branch
 - a `dev` branch containing code under development.
 - several `feature/...` branches created for different parts of the game: player, enemy, projectile and power-up features.
 
-For commits, we followed the conventional commit style: `(type)[optional context]: short description`.
+For commits, we followed the conventional commit style: `type(optional context): short description`.
 
 The project uses GitHub Actions to automatically run tests on each push and manage deployment, enabling automatic release generation on GitHub. 
 
-Pull requests and issues were not used during development.
+Pull requests and issues were not used during development itself.
 
 ## Implementation details
-
-- Which network protocols should be used? Why?
-    - Examples: UDP, TCP, HTTP, WebSockets, gRPC, XMPP, AMQP, MQTT, etc.
-
-- How should in-transit data be represented? Why?
-    - Examples: JSON, XML, YAML, Protocol Buffers, etc.
-
-- How should databases be queried? Why?
-    - Examples: SQL, NoSQL, etc.
-
-- How should components be authenticated? Why?
-    - Examples: OAuth, JWT, etc.
-
-- How should components be authorized? Why?
-    - Examples: RBAC, ABAC, etc.
   
 The implemented game is standalone, meaning it doesn't require an internet connection to be used. Consequently, no network protocols were adopted, since the game runs entirely locally.
 
@@ -47,33 +32,24 @@ There are no authentication or authorization mechanisms, as the game is single-p
 
 ## Technological details
 
-- Which programming languages, frameworks, libraries, and tools were used? Why?
-    - Examples: Java, Python, C++, JavaScript, React, Angular, Vue, etc.
-
-- Which libraries do the project depend on? Why?
-    - Examples: React, Redux, Express, etc.
-
-- Are there any other external technology or service dependencies? Why?
-    - Examples: Google Maps, Firebase, etc.
-
-
-
 **Programming Languages**
 
-We used the primary language as Python version 3.12.1. It because of its simplicity, readability, and extensive library ecosystem for game development. Its ideal for rapid prototyping and educational projects. 
+We used the primary language as Python version 3.12.1. It because of its simplicity, readability, and extensive library ecosystem for game development. It is ideal for rapid prototyping and educational projects. 
 
 **Core Game Development Framework**
 
-We have used Pygame 2.6.1 for our framework because pygame is the primary framework for 2D game development in python. It provides the following:
+We have used Pygame 2.6.1 for our framework because Pygame is the primary framework for 2D game development in Python. It provides the following:
 
 - Graphics rendering and sprite management
 - Input Handling (keyboard, mouse)
-- Sound and music playbooko
+- Sound and music handling
 - Cross-platform compatibility
 
 **UI Framework**
 We used Pygame Menu 4.5.2 because it provides pre-built menu components for the game's main menu, settings and scoreboard, renducing development time for UI elements.
 
 **GUI Toolkit**
-We used TKinter for GUI toolkit which is used for screen dimension detection in the menu system (menu_imp.py) TKinter is python's builtin GUI toolkit, providing, access to system information like screen resolution. 
+We used TKinter for GUI toolkit which is used for screen dimension detection in the menu system (menu_impl.py) TKinter is Python's builtin GUI toolkit, providing, access to system information like screen resolution. 
 
+**Project Dependencies**
+The project itself has 2 main dependencies (build>=0.6.0 and twine>=3.4.2) which are for the CI/CD workflows and the release of the application on TestPyPI.

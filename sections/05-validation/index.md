@@ -77,7 +77,7 @@ Integration testing was employed to verify the behavior and interactions between
 - **Player / Entity**: testing the player's interactions with other entities. 
 - **Player / PlayerStatus**: testing handling of status changes during the normal functionality of player.
 - **PlayerStatus / CooldownHandler**: testing the status cooldowns.
-- **World / Entity**: verifying the correct addition of new elements bieng all of the Entity class (or one of its subclasses).
+- **World / Entity**: verifying the correct addition of new elements being all of the Entity class (or one of its subclasses).
 
 These tests confirmed that the components interacted as expected. The overall test success rate was 100%.
 
