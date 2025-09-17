@@ -21,7 +21,7 @@ nav_order: 3
             - Birds: move in predictable patterns (left-right sweeping, then descend - Space Invaders style) and occasionally attack the player car with projectiles. They come in waves, meaning that when all the birds on the screen are defeated, a new wave will appear
             - Bats: move left to right close to the car and try to home in on it and attack it with their sound waves to mess up the player’s movement
         3. The user should be able to obtain from time to time power-ups from defeated enemies, that allow the player character to gain temporary boosts/advantages, like temporary invincibility and laser
-        4. The user should be able to understand easily the health of the player character and the enmies by just looking at the screen
+        4. The user should be able to understand easily the health of the player character and the enemies by just looking at the screen
         5. The game is endless in nature, so it should end when:
             - The car loses all its health points
             - A bird reaches the player ship
