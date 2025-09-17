@@ -29,8 +29,8 @@ To contribute:
 2. Create an isolated virtual environment: 
 ``` 
 python -m venv venv 
-venv\Scripts\activate  
-source venv/bin/activate
+venv\Scripts\activate  #Windows
+source venv/bin/activate   #Linux/macOS
 ```
 3. Install dependencies (`pip install -r requirements-dev.txt`).
 4. Implement changes.
