@@ -78,6 +78,14 @@ Integration testing was employed to verify the behavior and interactions between
 - **Player / PlayerStatus**: testing handling of status changes during the normal functionality of player.
 - **PlayerStatus / CooldownHandler**: testing the status cooldowns.
 - **World / Entity**: verifying the correct addition of new elements being all of the Entity class (or one of its subclasses).
+- **Enemy / Player**: collisions (player damage), enemy death, and score updates on destruction. 
+- **Enemy / AttackHandler**: enemy fire rate, cooldowns, and projectile creation (Bird projectiles; Bat sound waves).
+- **Enemy / Projectile**: interaction of enemy projectiles with the player and with world bounds (cleanup/destruction). 
+- **EnemyFactory / World**: formation creation and placement (e.g., 3×10 Birds), integration into the world, and new-wave respawn once all enemies are cleared (endless loop). 
+- **Bird / Formation Movement**: boundary-driven direction switching and gradual descent; consistent group behaviour across frames. 
+- **Bat / Player Position**: state transition (DESCENDING → bird-like/homing) near the player and homing movement; attacks validated with sound waves. 
+- **Enemy / Power-up Drops**: probabilistic drops on enemy death and subsequent player collection 
+
 
 These tests confirmed that the components interacted as expected. The overall test success rate was 100%.
 
@@ -88,9 +96,10 @@ To isolate components and simulate dependent behaviors during integration testin
 - **Dummy power-up**: applied to test general logic without applying real effects.
 - **Timer mock (patch)**: used for timed power-ups to simulate the passage of time and test the expiration of temporary effects without actual delays.
 
+
 ### System testing
 
-To test the system as a whole, no automatic test have been developed. Instead, manual tests were relied upon in order to achieve that goal (see below).
+To test the system as a whole, no automatic test have been developed. Instead, manual tests were relied upon in order to achieve that goal, as detailed in the following section.
 
 ## Acceptance tests (manual)
 
