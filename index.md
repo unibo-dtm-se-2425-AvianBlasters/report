@@ -15,7 +15,7 @@ nav_order: 1
 
 ## Abstract
 
-“Avian Blasters” is a single-player, fixed-screen arcade shoot ’em up—built in Python with Pygame—where the player drives a car along the bottom of the screen, dodging and shooting through endless waves of avian foes. Birds advance in formation while Bats home in using sound-wave attacks, and defeated enemies can drop power-ups (e.g., invincibility, laser). The game features a retro audiovisual style, difficulty selection, and a local high-score leaderboard; all gameplay is offline. Developed as part of a university Software Engineering project, the design emphasizes a clean layered/MVC architecture and maintainable, testable code.
+“Avian Blasters” is a single-player, fixed-screen arcade shoot ’em up—built in Python with Pygame—where the player drives a car along the bottom of the screen, dodging and shooting through endless waves of avian foes. Birds advance in formation while Bats home in using sound-wave attacks, and defeated enemies can drop power-ups (e.g., invincibility, laser). The game features a retro audiovisual style, difficulty selection, and a local high-score leaderboard; all gameplay is offline and runs in a single process on the user’s machine. Developed as part of a university Software Engineering project, the design emphasizes a clean layered/MVC architecture and maintainable, testable code.
 
 ## Disclaimer (if needed)
 
