@@ -357,7 +357,7 @@ This section provides the system's principal classes, their responsibilities, sa
 
 - `EnemyFactory → Bird, Bat`; `ProjectileFactory → Projectile (e.g., SoundwaveProjectile)`; `PowerUpFactory → PowerUp`.
 
-![Class Diagram](../../pictures/ClassDiagram.png)
+![Class Diagram](../../pictures/UML_Class_Diagram.png)
 
 ## Interaction
 
