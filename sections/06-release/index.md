@@ -40,9 +40,14 @@ Versions follow the `Major.Minor.Patch` format:
 All produced artifacts share the same version number, as they represent the same code in different formats, ensuring consistency across distributions.
 
 To release a new version, follow these steps:
-1) If needed, create a dedicated branch for the release, for example ` git checkout -b feature/new-feature`;
+
+1) If needed, create a dedicated branch for the release, for example `git checkout -b feature/new-feature`;
+
 2) Run tests and merge the changes into the `master` or `main` branch;
+
 3) Create a Git tag with the appropriate version number, e.g., `git tag -a X.Y.Z -m "description"`;
+
 4) Push the tag to GitHub with `git push --follow-tags`;
+
 5) The automated pipeline will handle packaging and releasing the new version.
 

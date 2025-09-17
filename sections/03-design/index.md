@@ -143,7 +143,7 @@ It transform domain state/events into frames, HUD, and feedback without altering
 
 **Aggregates/Entities**
 
-- RenderScene (aggregate root): currect frame graph (layers, camera, UI).
+- RenderScene (aggregate root): current frame graph (layers, camera, UI).
 - SpriteManager* : sprite/animation resources per entity family.
 - UIOverlay/HUD: health, score, game over, pause.
 
