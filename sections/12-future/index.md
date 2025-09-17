@@ -18,10 +18,12 @@ Despite this, there a few aspects that could be improved further and/or added in
 
 4) local multiplayer support
 
-5) power-ups do not change the colour of the car, but create a aura around it, signaling the power-up currently in use. This way, the current health of the player is clearer to understand
+5) improved colour handling: power-ups do not change the colour of the car, but create a aura around it, signaling the power-up currently in use. This way, the current health of the player is clearer to understand
 
-6) new power-ups, projectiles and enemy types, including bosses
+6) improved game over handling, so that it is less abrupt
 
-7) alternate modes of play, such a time attack mode, in which the player must survive for a specific amount of time
+7) new power-ups, projectiles and enemy types, including bosses
 
-8) release on PyPI
+8) alternate modes of play, such a time attack mode, in which the player must survive for a specific amount of time
+
+9) release on PyPI
