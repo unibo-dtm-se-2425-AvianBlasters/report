@@ -90,14 +90,7 @@ To isolate components and simulate dependent behaviors during integration testin
 
 ### System testing
 
-- Describe the tests that you developed to automatically test the system as a whole
-    + and the corresponding test rationale/plan
-    + better would be to have system tests that match the acceptance criteria of the requirements
-
-- Report success rate and test coverage here
-
-- If you adopted containers (e.g. Docker compose) for testing, describe how you used them here
-    + e.g. to run the system in a clean environment, or to run the tests in a clean environment
+To test the system as a whole, no automatic test have been developed. Instead, manual tests were relied upon in order to achieve that goal (see below).
 
 ## Acceptance tests (manual)
 
@@ -111,8 +104,8 @@ The following acceptance criteria were specifically addressed:
 - **F1**: The player can move the car left and right and shoot upward.
 - **F2**: The game features at least two enemy types—birds and bats—with distinct attack modes and movement patterns.
 - **F3**: The game includes at least two power-ups (invulnerability and laser), as well as two additional ones (health recovery and double shoot).
-- **F4**: The player's health status is visually represented through the character's color.
-- **F5**: The game ends when the player is defeated.
+- **F4**: The player's and the enemies' health status is visually represented through the character's colour.
+- **F5**: The game ends when the player is defeated or an enemy touches the car.
 - **NF1**: The game maintains a stable frame rate of 60 FPS by default, with the option to adjust the frame rate via the settings menu.
 - **NF2**: Graphic assets follow a visual style inspired by the 1970s/1980s.
 - **NF3**: The score is displayed in the top-left corner of the screen.
