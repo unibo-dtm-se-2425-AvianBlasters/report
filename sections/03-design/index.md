@@ -361,7 +361,7 @@ This section provides the system's principal classes, their responsibilities, sa
 
 ## Interaction
 
-This section explains how components communicate, when, and what they exchange, and the interaction patterns they enact.
+This section explains how components communicate, when, and what they exchange, and the patterns used to interact with one another.
 
 ### Component Interaction
 
@@ -393,9 +393,9 @@ The data exchanged between components can be categorized into several distinct t
 
 - System Cues: This category includes audio cues (e.g., for firing or impact sounds) and persistence data related to score submissions and queries to the local scoreboard.
 
-### Interaction Patterns
+### Patterns for component interaction
 
-The system employs several established interaction patterns to manage communication flow and maintain a clean separation of concerns.
+The system employs several established design patterns to manage communication flow and maintain a clean separation of concerns.
 
 - Model-View-Controller (MVC): This core pattern decouples rendering (View) from game state (Model) and input handling (Controller). The flow is User `InputHandlerImpl → GameControllerImpl → WorldImpl → GameViewImpl → Display`.
 
