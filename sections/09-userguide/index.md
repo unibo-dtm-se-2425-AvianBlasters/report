@@ -61,7 +61,7 @@ We require now, more than ever, your assistance Mr. Odie.
 
 Your mission, should you choose to accept it, is to distract the Avians using your car, the Jolly Runner, so that we can defeat them once and for all by sending them to a dimension where they will not antagonise us anymore through all their staining... well they could still ruin someone else's day, but not ours, so it checks out... right?
 
-Anyway, we know you can not get your newly improved Jolly Runner can not withstand their attacks without staining it irreparably, but through the use of your weaponry and of the items we will give you during the fight, you should be able to assist us in our desperate attempt to defend the Earth.
+Anyway, we know your newly improved Jolly Runner can not withstand their attacks without staining it irreparably, but through the use of your weaponry and of the items we will give you during the fight, you should be able to assist us in our desperate attempt to defend the Earth.
 
 Help us Mr. Odie, you are our only hope.
 
@@ -169,7 +169,7 @@ During the game the following will be shown:
 
 ![Bats](../../pictures/sprites/bats.png)
 
-Much like the Jolly Jumper, their health is indicated by their colour:
+Much like the Jolly Runner, their health is indicated by their colour:
 - Green: they need to be hit thrice
 - Yellow: they need to be hit twice more
 - Red: one more hit and they are defeated
