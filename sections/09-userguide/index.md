@@ -238,15 +238,13 @@ When an Avian is defeated a Power-Up might drop. It can be one of the following:
 
 - [Filippo Velli](mailto:filippo.velli@studio.unibo.it)
 
-### Libraries and Templates used
+### Packages and Templates used
 
 - [`build`](https://pypi.org/project/build/)
 
 - [`twine`](https://pypi.org/project/twine/)
 
 - [`scikit-learn`](https://pypi.org/project/scikit-learn/)
-
-- [`pandas`](https://pypi.org/project/pandas/)
 
 - [`pygame`](https://pypi.org/project/pygame/)
 

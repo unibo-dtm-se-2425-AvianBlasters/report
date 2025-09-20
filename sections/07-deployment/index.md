@@ -10,6 +10,8 @@ nav_order: 8
 
 To install and run Avian Blasters on their machine, the user needs Python 3.12.1 or higher and standard management tools (`pip`). No additional configuration or environment variables are required.
 
+*Note: It is recommended to use a Python version obtained from python.org (https://www.python.org/downloads/).*
+
 The game can be obtained in two ways:
 
 1. **Installation from TestPyPI**
